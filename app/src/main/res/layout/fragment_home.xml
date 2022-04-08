@@ -7,7 +7,11 @@
     tools:context=".ui.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/popular_movies"
         android:layout_width="match_parent"
-        android:id="@+id/movie_recycler"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

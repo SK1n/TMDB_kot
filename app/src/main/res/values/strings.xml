@@ -4,4 +4,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="movie_name">Movie name</string>
+    <string name="error_fetch_movies">Error fetching the data</string>
 </resources>

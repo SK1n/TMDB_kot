@@ -1,4 +1,4 @@
-package com.example.tmdb.activities
+package com.example.tmdb
 
 import android.os.Bundle
 import android.util.Log
@@ -11,18 +11,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityMainBinding
-import com.example.tmdb.helpers.MoviesAdapter
-import com.example.tmdb.models.Movies
-import com.example.tmdb.services.MoviesService
-import com.example.tmdb.services.ServiceBuilder
+import com.example.tmdb.ui.home.Movie
+import com.example.tmdb.ui.home.MoviesRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        var movierecycler = findViewById<RecyclerView>(R.id.movie_recycler)
         //TODO: data binding / view model
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -43,32 +38,6 @@ class MainActivity : AppCompatActivity() {
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        loadMovies(movierecycler)
     }
 
-    private fun loadMovies(recycler : RecyclerView) {
-        //initiate the service
-        val destinationService  = ServiceBuilder.buildService(MoviesService::class.java)
-        val requestCall = destinationService.getMoviesList(page = 1)
-        //make network call asynchronously
-        requestCall.enqueue(object : Callback<List<Movies>> {
-            override fun onResponse(call: Call<List<Movies>>, response: Response<List<Movies>>) {
-                Log.d("Response", "onResponse: ${response.body()}")
-                if (response.isSuccessful){
-                    val moviesList  = response.body()!!
-                    Log.d("Response", "movielist size : ${moviesList.size}")
-                    recycler.apply {
-                        setHasFixedSize(true)
-                        layoutManager = GridLayoutManager(this@MainActivity,2)
-                        adapter = MoviesAdapter(response.body()!!)
-                    }
-                }else{
-                    Toast.makeText(this@MainActivity, "Something went wrong ${response.code()}", Toast.LENGTH_SHORT).show()
-                }
-            }
-            override fun onFailure(call: Call<List<Movies>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Something went wrong $t", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 }
