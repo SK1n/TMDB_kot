@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        val movierecycler = findViewById<RecyclerView>(R.id.movie_recycler)
+        var movierecycler = findViewById<RecyclerView>(R.id.movie_recycler)
         //TODO: data binding / view model
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -43,13 +43,13 @@ class MainActivity : AppCompatActivity() {
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        loadCountries(movierecycler)
+        loadMovies(movierecycler)
     }
 
-    private fun loadCountries(recycler : RecyclerView) {
+    private fun loadMovies(recycler : RecyclerView) {
         //initiate the service
         val destinationService  = ServiceBuilder.buildService(MoviesService::class.java)
-        val requestCall =destinationService.getMoviesList(page = 1)
+        val requestCall = destinationService.getMoviesList(page = 1)
         //make network call asynchronously
         requestCall.enqueue(object : Callback<List<Movies>> {
             override fun onResponse(call: Call<List<Movies>>, response: Response<List<Movies>>) {
