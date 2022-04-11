@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.tmdb.R
+import com.example.tmdb.databinding.MovieItemBinding
 
 class MoviesAdapter(
     private var movies: List<Movie>
@@ -16,8 +19,9 @@ class MoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.movie_item, parent, false)
-        return MovieViewHolder(view)
+
+        val binding = MovieItemBinding.inflate(view)
+        return MovieViewHolder(binding)
     }
 
     override fun getItemCount(): Int = movies.size
@@ -31,11 +35,17 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(private val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private val poster: ImageView = itemView.findViewById(R.id.item_movie_poster)
 
         fun bind(movie: Movie) {
+
+            binding.movieTitle.text =movie.title
+            binding.movieReleaseDate.text = movie.releaseDate
+
+            binding.movieOverview.text = movie.overview
+            binding.movieReleaseDate.text = movie.releaseDate
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w342${movie.posterPath}")
                 .transform(CenterCrop())
