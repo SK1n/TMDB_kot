@@ -5,10 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.tmdb.R
 import com.example.tmdb.databinding.MovieItemBinding
 
@@ -32,23 +35,23 @@ class MoviesAdapter(
 
     fun updateMovies(movies: List<Movie>) {
         this.movies = movies
+
         notifyDataSetChanged()
+
     }
 
-    inner class MovieViewHolder(private val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: MovieItemBinding) :RecyclerView.ViewHolder(binding.root) {
 
         private val poster: ImageView = itemView.findViewById(R.id.item_movie_poster)
 
         fun bind(movie: Movie) {
-
-            binding.movieTitle.text =movie.title
+            binding.movieTitle.text = movie.title
             binding.movieReleaseDate.text = movie.releaseDate
-
             binding.movieOverview.text = movie.overview
-            binding.movieReleaseDate.text = movie.releaseDate
+            binding.movieRating.text = movie.rating.toString()
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w342${movie.posterPath}")
-                .transform(CenterCrop())
+                .transform(FitCenter())
                 .into(poster)
         }
     }
