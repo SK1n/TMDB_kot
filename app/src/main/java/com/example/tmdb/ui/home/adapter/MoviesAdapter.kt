@@ -1,23 +1,35 @@
-package com.example.tmdb.ui.home
+package com.example.tmdb.ui.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
+
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.example.tmdb.R
 import com.example.tmdb.databinding.MovieItemBinding
+import com.example.tmdb.ui.home.retrofit.Movie
 
 class MoviesAdapter(
     private var movies: List<Movie>
-) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+) : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(MoviesDiffCallback()) {
+
+    var onItemClick: ((Movie) -> Unit)? = null;
+class MoviesDiffCallback: DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.title == newItem.title
+    }
+
+}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater
@@ -53,6 +65,9 @@ class MoviesAdapter(
                 .load("https://image.tmdb.org/t/p/w342${movie.posterPath}")
                 .transform(FitCenter())
                 .into(poster)
+        }
+        init {
+            itemView.setOnClickListener { onItemClick?.invoke(movies[adapterPosition]) }
         }
     }
 }

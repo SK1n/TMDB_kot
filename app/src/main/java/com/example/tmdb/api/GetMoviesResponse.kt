@@ -1,5 +1,6 @@
-package com.example.tmdb.ui.home.retrofit
+package com.example.tmdb.api
 
+import com.example.tmdb.ui.home.retrofit.Movie
 import com.google.gson.annotations.SerializedName
 
 data class GetMoviesResponse(

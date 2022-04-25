@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.home
+package com.example.tmdb.ui.home.retrofit
 
 import com.google.gson.annotations.SerializedName
 

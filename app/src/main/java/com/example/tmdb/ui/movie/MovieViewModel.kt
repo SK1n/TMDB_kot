@@ -1,7 +1,7 @@
-package com.example.tmdb
+package com.example.tmdb.ui.movie
 
 import androidx.lifecycle.ViewModel
 
-class FragmentMovieViewModel : ViewModel() {
+class MovieViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

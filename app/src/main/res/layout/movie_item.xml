@@ -4,69 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mov"
-            type="com.example.tmdb.ui.home.Movie" />
+            type="com.example.tmdb.ui.home.retrofit.Movie" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
 
             <ImageView
                 android:id="@+id/item_movie_poster"
-                android:layout_width="148dp"
-                android:layout_height="210dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight=".30" />
 
-            <TextView
-                android:id="@+id/movieTitle"
-                android:layout_width="198dp"
-                android:layout_height="26dp"
-                android:layout_marginStart="60dp"
-                android:hint="Movie Title"
-                android:text="@{mov.title}"
-                app:layout_constraintStart_toEndOf="@+id/item_movie_poster"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/movieOverview"
-                android:layout_width="200dp"
-                android:layout_height="133dp"
-                android:text="@{mov.overview}"
-                android:hint="Movie Overview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/item_movie_poster"
-                app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
-
-            <TextView
-                android:id="@+id/movieRating"
-                android:layout_width="144dp"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Movie Rating"
-                android:text="@{String.valueOf(mov.rating)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+                android:layout_weight=".69"
 
-            <TextView
-                android:id="@+id/movieReleaseDate"
-                android:layout_width="118dp"
-                android:layout_height="wrap_content"
-                android:hint="Movie Release Date"
-                android:text="@{String.valueOf(mov.releaseDate)}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieRating" />
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/movieTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Movie Title"
+                    android:textSize="24dp" />
+                <TextView
+                    android:id="@+id/movieOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Movie Overview" />
+
+                <TextView
+                    android:id="@+id/movieRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Movie Rating"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+
+                <TextView
+                    android:id="@+id/movieReleaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Movie Release Date"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movieRating" />
+            </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

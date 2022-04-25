@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.18697916666666667" />
         <entry key="..\:/Users/luys2/Desktop/projects/TMDB/app/src/main/res/layout/activity_main.xml" value="0.16590678824721378" />
         <entry key="..\:/Users/luys2/Desktop/projects/TMDB/app/src/main/res/layout/fragment_home.xml" value="0.371875" />
         <entry key="..\:/Users/luys2/Desktop/projects/TMDB/app/src/main/res/layout/movie_item.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15425531914893617" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.15425531914893617" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.153125" />
+        <entry key="app/src/main/res/layout/fragment_movie_fragment.xml" value="0.10326086956521739" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16041666666666668" />
       </map>
     </option>
   </component>
