@@ -1,9 +1,8 @@
-package com.example.tmdb.ui.home
+package com.example.tmdb.network
 
 import com.squareup.moshi.Json
 
 data class TopRatedMovies(
-    @Json(name = "id") val id: Long,
-    @Json(name = "title")val title: String,
+    val id: String,
     @Json(name = "poster_path") val posterPath: String,
 )

@@ -1,25 +1,36 @@
 package com.example.tmdb.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tmdb.api.GetMoviesResponse
-import com.example.tmdb.ui.home.retrofit.Movie
-import com.example.tmdb.ui.home.retrofit.MoviesRepository
-import com.example.tmdb.ui.home.retrofit.PopularMovies
+import androidx.lifecycle.viewModelScope
+import com.example.tmdb.network.TopRatedApi
+import com.example.tmdb.network.TopRatedMovies
+import kotlinx.coroutines.launch
 
-class HomeViewModel(val repo: MoviesRepository, val req: GetMoviesResponse, val movies: PopularMovies): ViewModel() {
+enum class TopRatedApiStatus { LOADING, ERROR, DONE }
+class HomeViewModel(): ViewModel() {
 
-    val movieList = MutableLiveData<List<Movie>>()
+    private val _status = MutableLiveData<TopRatedApiStatus>()
+    val status: LiveData<TopRatedApiStatus> = _status
 
-
-    suspend fun fetchMovies(page: Int) {
-        movieList.value = repo.getPopularMovies(movies,req)
+    private val _movies = MutableLiveData<List<TopRatedMovies>>()
+    val movies: LiveData<List<TopRatedMovies>> = _movies
+    init {
+        getTopRatedMovieImage()
     }
 
-    fun getMovieList(): LiveData<List<Movie>> = movieList
-
-    fun setMovieList(movieList: List<Movie>){
-        this.movieList.value = movieList
+    private fun getTopRatedMovieImage() {
+        viewModelScope.launch {
+            _status.value = TopRatedApiStatus.LOADING
+            try {
+                _movies.value = TopRatedApi.retrofitService.getTopRatedMovies()
+                _status.value = TopRatedApiStatus.DONE
+            } catch (e: Exception) {
+                _status.value = TopRatedApiStatus.ERROR
+                _movies.value = listOf()
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.home.adapter
+package com.example.tmdb.ui.home
 
 import android.view.View
 import android.widget.ImageView
