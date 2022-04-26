@@ -41,6 +41,7 @@
                     android:id="@+id/movieOverview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:text="@{topRatedMovieItem.overview}"
                     android:hint="Movie Overview" />
 
                 <TextView
@@ -48,18 +49,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Rating"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+                    android:text="@{`Rating: ` + String.valueOf(topRatedMovieItem.voteAverage)}"
+                    />
 
                 <TextView
                     android:id="@+id/movieReleaseDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Release Date"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movieRating" />
+                    android:text="@{`Release date: ` + topRatedMovieItem.releaseDate}"
+                    />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
