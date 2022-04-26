@@ -27,7 +27,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".69"
-
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
 
@@ -35,8 +34,8 @@
                     android:id="@+id/movieTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="Movie Title"
+                    android:text="@{topRatedMovieItem.title}"
                     android:textSize="24dp" />
                 <TextView
                     android:id="@+id/movieOverview"

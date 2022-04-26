@@ -23,7 +23,7 @@ class TopRatedAdapter: ListAdapter<TopRatedMovies, TopRatedAdapter.TopRatedViewH
         }
 
         override fun areContentsTheSame(oldItem: TopRatedMovies, newItem: TopRatedMovies): Boolean {
-            return oldItem == newItem
+            return oldItem.title == newItem.title
         }
     }
     override fun onCreateViewHolder(

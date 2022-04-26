@@ -2,11 +2,15 @@ package com.example.tmdb.network
 
 
 import com.example.tmdb.BuildConfig
+import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 /**
@@ -29,11 +33,11 @@ private val retrofit = Retrofit.Builder()
  * A public interface that exposes the [getTopRatedMovies] method
  */
 interface ApiService {
-    @GET("movie/popular")
+    @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("page") page:  Int = 1
-    ): List<TopRatedMovies>
+        @Query("api_key") api:String = BuildConfig.API_KEY,
+        @Query("page")page:Int = 1,
+    ): TopRatedMoviesPage
 }
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
