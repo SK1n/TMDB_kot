@@ -6,4 +6,6 @@
     <string name="movie_name">Movie name</string>
     <string name="error_fetch_movies">Error fetching the data</string>
     <string name="Movie">Movie</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
