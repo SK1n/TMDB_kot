@@ -8,7 +8,7 @@ import com.example.tmdb.ui.movies.nowPlaying.NowPlayingFragment
 import com.example.tmdb.ui.movies.popular.PopularFragment
 import com.example.tmdb.ui.movies.upcoming.UpcomingFragment
 
-class MoviesAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle) {
+class MoviesViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle) {
     override fun getItemCount(): Int {
         return 3
     }

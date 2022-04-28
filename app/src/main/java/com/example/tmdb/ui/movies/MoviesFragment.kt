@@ -24,7 +24,7 @@ class MoviesFragment : Fragment() {
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
         val pager2 = binding.moviesPager
         val tabLayout = binding.moviesTabLayout
-        pager2.adapter = MoviesAdapter(childFragmentManager,lifecycle)
+        pager2.adapter = MoviesViewPagerAdapter(childFragmentManager,lifecycle)
         TabLayoutMediator(tabLayout,pager2) {
             tab, position -> tab.text =tabTitles[position]
         }.attach()

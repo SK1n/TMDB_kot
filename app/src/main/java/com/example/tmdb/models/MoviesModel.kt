@@ -1,14 +1,13 @@
-package com.example.tmdb.network
+package com.example.tmdb.models
 
-import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
-import retrofit2.http.Query
-data class TopRatedMoviesPage(
+data class MoviesPage(
     @Json(name = "page") val page: Int,
-    @Json(name = "results") val results: List<TopRatedMovies>
+    @Json(name = "results") val results: List<MoviesModel>
 )
-data class TopRatedMovies(
-    @Json(name ="title") val title: String,
+
+data class MoviesModel(
+    @Json(name = "title") val title: String,
     @Json(name = "id") val id: Int,
     @Json(name = "poster_path") val posterPath: String,
     @Json(name = "original_title") val originalTitle: String,
@@ -16,5 +15,5 @@ data class TopRatedMovies(
     @Json(name = "popularity") val popularity: Float,
     @Json(name = "vote_count") val voteCount: Int,
     @Json(name = "overview") val overview: String,
-    @Json(name ="release_date") val releaseDate: String,
+    @Json(name = "release_date") val releaseDate: String,
 )

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="topRatedMovieItem"
-            type="com.example.tmdb.network.TopRatedMovies" />
+            name="movieItem"
+            type="com.example.tmdb.models.MoviesModel" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/item_movie_poster"
                 android:layout_width="0dp"
-                app:imageUrl="@{topRatedMovieItem.posterPath}"
+                app:imageUrl="@{movieItem.posterPath}"
                 android:layout_height="150dp"
                 android:layout_weight=".30" />
 
@@ -35,13 +35,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Title"
-                    android:text="@{topRatedMovieItem.title}"
+                    android:text="@{movieItem.title}"
                     android:textSize="24dp" />
                 <TextView
                     android:id="@+id/movieOverview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@{topRatedMovieItem.overview}"
+                    android:text="@{movieItem.overview}"
                     android:hint="Movie Overview" />
 
                 <TextView
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Rating"
-                    android:text="@{`Rating: ` + String.valueOf(topRatedMovieItem.voteAverage)}"
+                    android:text="@{`Rating: ` + String.valueOf(movieItem.voteAverage)}"
                     />
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Release Date"
-                    android:text="@{`Release date: ` + topRatedMovieItem.releaseDate}"
+                    android:text="@{`Release date: ` + movieItem.releaseDate}"
                     />
             </LinearLayout>
         </LinearLayout>

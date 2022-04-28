@@ -11,14 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var topRatedAdapter: TopRatedAdapter
-    private lateinit var topRatedRecycler: RecyclerView
+    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesRecycler: RecyclerView
 
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -29,15 +30,15 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        topRatedRecycler = binding.topRatedRecycler
-        topRatedRecycler.addItemDecoration(
+        moviesRecycler = binding.topRatedRecycler
+        moviesRecycler.addItemDecoration(
             DividerItemDecoration(
                 context,
                 DividerItemDecoration.VERTICAL
             )
         )
-        topRatedAdapter = TopRatedAdapter()
-        topRatedRecycler.adapter = topRatedAdapter
+        moviesAdapter = MoviesAdapter()
+        moviesRecycler.adapter = moviesAdapter
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var navController = view?.findNavController()
 
-        topRatedAdapter.onItemClick = { topRatedMovies ->
+        moviesAdapter.onItemClick = { topRatedMovies ->
             var opt = HomeFragmentDirections.actionNavigationHomeToNavigationMovie()
             navController?.navigate(opt)
             Log.d("HomeFragment", "onViewCreated: ${topRatedMovies.title}")
