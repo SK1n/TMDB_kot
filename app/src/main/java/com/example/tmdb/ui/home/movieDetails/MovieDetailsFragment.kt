@@ -6,11 +6,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.tmdb.databinding.FragmentMovieDetailsBinding
 
 class MovieDetailsFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailsBinding? = null
+    val args: MovieDetailsFragmentArgs by navArgs()
 
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -19,6 +21,7 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        val movie = args.movie
         setHasOptionsMenu(true)
         return binding.root
     }

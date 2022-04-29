@@ -38,5 +38,9 @@
         android:id="@+id/navigation_movie"
         android:name="com.example.tmdb.ui.home.movieDetails.MovieDetailsFragment"
         android:label="@string/Movie"
-        tools:layout="@layout/fragment_movie_details" />
+        tools:layout="@layout/fragment_movie_details" >
+        <argument
+            android:name="movie"
+            app:argType="com.example.tmdb.models.MoviesModel" />
+    </fragment>
 </navigation>

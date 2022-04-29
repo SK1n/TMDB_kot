@@ -1,10 +1,11 @@
-package com.example.tmdb.network
+package com.example.tmdb.api
 
 
 import com.example.tmdb.BuildConfig
 import com.example.tmdb.models.MoviesPage
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -29,26 +30,15 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public interface that exposes the [getTopRatedMovies] method
  */
-interface TopRatedApiService {
+interface ApiService {
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
         @Query("api_key") api:String = BuildConfig.API_KEY,
         @Query("page")page:Int = 1,
-    ): MoviesPage
-}
-interface NowPlayingApiService {
+    ): Response<MoviesPage>
     @GET("movie/now_playing")
     suspend fun getNowPlaying(
         @Query("api_key") api:String = BuildConfig.API_KEY,
         @Query("page")page:Int = 1,
-    ): MoviesPage
-}
-/**
- * A public Api object that exposes the lazy-initialized Retrofit service
- */
-object TopRatedApi {
-    val retrofitService: TopRatedApiService by lazy { retrofit.create(TopRatedApiService::class.java) }
-}
-object NowPlayingApi {
-    val retrofitService: NowPlayingApiService by lazy { retrofit.create(NowPlayingApiService::class.java) }
+    ): Response<MoviesPage>
 }

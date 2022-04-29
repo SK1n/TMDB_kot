@@ -1,19 +1,22 @@
 package com.example.tmdb.models
 
-import com.squareup.moshi.Json
+
+import java.io.Serializable
+
 data class MoviesPage(
-    @Json(name = "page") val page: Int,
-    @Json(name = "results") val results: List<MoviesModel>
+    val page: Int,
+    val results: MutableList<MoviesModel>,
+    val total_pages: Int
 )
 
 data class MoviesModel(
-    @Json(name = "title") val title: String,
-    @Json(name = "id") val id: Int,
-    @Json(name = "poster_path") val posterPath: String,
-    @Json(name = "original_title") val originalTitle: String,
-    @Json(name = "vote_average") val voteAverage: Float,
-    @Json(name = "popularity") val popularity: Float,
-    @Json(name = "vote_count") val voteCount: Int,
-    @Json(name = "overview") val overview: String,
-    @Json(name = "release_date") val releaseDate: String,
-)
+    val title: String?,
+    val id: Int?,
+    val poster_path: String?,
+    val original_title: String?,
+    val vote_average: Float?,
+    val popularity: Float?,
+    val vote_count: Int?,
+    val overview: String?,
+    val release_date: String?,
+) : Serializable

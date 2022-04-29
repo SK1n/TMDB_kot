@@ -4,36 +4,43 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tmdb.MovieModelStatus
+import com.example.tmdb.api.RetrofitInstance
 import com.example.tmdb.models.MoviesModel
 import com.example.tmdb.models.MoviesPage
-import com.example.tmdb.network.NowPlayingApi
+import com.example.tmdb.utils.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 
 class NowPlayingViewModel : ViewModel() {
-    private val _status = MutableLiveData<MovieModelStatus>()
-    val status: LiveData<MovieModelStatus> = _status
+    val moviesPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
+    var moviesPageNumber = 1
+    var moviesPageResponse: MoviesPage? = null
 
-    private val _moviesPage = MutableLiveData<MoviesPage>()
-    private val moviesPage: LiveData<MoviesPage> = _moviesPage
-    private val _movies = MutableLiveData<List<MoviesModel>>()
-    val movies: LiveData<List<MoviesModel>> = _movies
     init {
-       getNowPlayingMovies()
+        getMoviesPage()
     }
 
-    private fun getNowPlayingMovies() {
-        viewModelScope.launch {
-            _status.value = MovieModelStatus.LOADING
-            try {
-                _moviesPage.value = NowPlayingApi.retrofitService.getNowPlaying()
-                _movies.value = moviesPage.value?.results
-                _status.value = MovieModelStatus.DONE
-            } catch (e: Exception) {
-                _status.value = MovieModelStatus.ERROR
-                _movies.value = listOf()
+    fun getMoviesPage() = viewModelScope.launch {
+        moviesPage.postValue(Resource.Loading())
+        val response = RetrofitInstance.api.getNowPlaying(page = moviesPageNumber)
+        moviesPage.postValue(handleMoviesPageResponse(response))
+    }
+
+    private fun handleMoviesPageResponse(response: Response<MoviesPage>): Resource<MoviesPage> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                moviesPageNumber++
+                if(moviesPageResponse == null) {
+                    moviesPageResponse = resultResponse
+                } else {
+                    val oldMovies = moviesPageResponse?.results
+                    val newMovies = resultResponse.results
+                    oldMovies?.addAll(newMovies)
+                }
+                return Resource.Success(moviesPageResponse ?: resultResponse)
             }
         }
+        return Resource.Error(response.message())
     }
 }

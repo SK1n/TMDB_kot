@@ -1,44 +1,46 @@
 package com.example.tmdb.ui.home
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tmdb.MovieModelStatus
-import com.example.tmdb.models.MoviesModel
+import com.example.tmdb.api.RetrofitInstance
 import com.example.tmdb.models.MoviesPage
-import com.example.tmdb.network.TopRatedApi
+import com.example.tmdb.utils.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 
-class HomeViewModel(): ViewModel() {
+class HomeViewModel : ViewModel() {
 
-    private val _status = MutableLiveData<MovieModelStatus>()
-    val status: LiveData<MovieModelStatus> = _status
 
-    private val _moviesPage = MutableLiveData<MoviesPage>()
-    private val moviesPage: LiveData<MoviesPage> = _moviesPage
-    private val _movies = MutableLiveData<List<MoviesModel>>()
-    val movies: LiveData<List<MoviesModel>> = _movies
+    val moviesPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
+    var moviesPageNumber = 1
+    var moviesPageResponse: MoviesPage? = null
+
     init {
-        getTopRatedMovieImage()
+        getMoviesPage()
     }
 
-    private fun getTopRatedMovieImage() {
-        viewModelScope.launch {
-            _status.value = MovieModelStatus.LOADING
-            try {
-                _moviesPage.value = TopRatedApi.retrofitService.getTopRatedMovies()
-                _movies.value = moviesPage.value?.results
-                _status.value = MovieModelStatus.DONE
-                Log.d("HomeViewModel", "getTopRatedMovies: ${_movies.value}")
-            } catch (e: Exception) {
-                _status.value = MovieModelStatus.ERROR
-                _movies.value = listOf()
+    fun getMoviesPage() = viewModelScope.launch {
+        moviesPage.postValue(Resource.Loading())
+        val response = RetrofitInstance.api.getTopRatedMovies(page = moviesPageNumber)
+        moviesPage.postValue(handleMoviesPageResponse(response))
+    }
 
-                Log.d("HomeViewModel", "getTopRatedMovieImage: ${e.toString()}")
+    private fun handleMoviesPageResponse(response: Response<MoviesPage>): Resource<MoviesPage> {
+        if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                moviesPageNumber++
+                if(moviesPageResponse == null) {
+                    moviesPageResponse = resultResponse
+                } else {
+                    val oldMovies = moviesPageResponse?.results
+                    val newMovies = resultResponse.results
+                    oldMovies?.addAll(newMovies)
+                }
+                return Resource.Success(moviesPageResponse ?: resultResponse)
             }
         }
+        return Resource.Error(response.message())
     }
 }

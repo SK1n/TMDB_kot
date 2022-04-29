@@ -19,8 +19,8 @@
             <ImageView
                 android:id="@+id/item_movie_poster"
                 android:layout_width="0dp"
-                app:imageUrl="@{movieItem.posterPath}"
                 android:layout_height="150dp"
+                app:imageUrl="@{movieItem.poster_path}"
                 android:layout_weight=".30" />
 
             <LinearLayout
@@ -29,7 +29,6 @@
                 android:layout_weight=".69"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/movieTitle"
                     android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Rating"
-                    android:text="@{`Rating: ` + String.valueOf(movieItem.voteAverage)}"
+                    android:text="@{`Rating: ` + String.valueOf(movieItem.vote_average)}"
                     />
 
                 <TextView
@@ -57,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Movie Release Date"
-                    android:text="@{`Release date: ` + movieItem.releaseDate}"
+                    android:text="@{`Release date: ` + movieItem.release_date}"
                     />
             </LinearLayout>
         </LinearLayout>

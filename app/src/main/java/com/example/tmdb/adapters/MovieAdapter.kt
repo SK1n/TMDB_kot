@@ -2,53 +2,53 @@ package com.example.tmdb.adapters
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.tmdb.R
 import com.example.tmdb.databinding.MovieItemBinding
 import com.example.tmdb.models.MoviesModel
 
-class MoviesAdapter() :
-    ListAdapter<MoviesModel, MoviesAdapter.MovieItemViewHolder>(DiffCallback) {
-
+class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieItemViewHolder>() {
     var onItemClick: ((MoviesModel) -> Unit)? = null
-
-    inner class MovieItemViewHolder(
-        private var binding: MovieItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(moviesItem: MoviesModel) {
-            binding.movieItem = moviesItem
-            binding.executePendingBindings()
-        }
-        init {
-            itemView.setOnClickListener {
-                onItemClick?.invoke(getItem(adapterPosition))
+        inner class MovieItemViewHolder(private var binding: MovieItemBinding): RecyclerView.ViewHolder(binding.root) {
+            fun bind(movie: MoviesModel?) {
+                binding.movieItem = movie
+                binding.executePendingBindings()
+            }
+            init {
+                itemView.setOnClickListener {
+                    onItemClick?.invoke(differ.currentList[adapterPosition])
+                }
             }
         }
-    }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MoviesModel>() {
+    private val differCallback = object  : DiffUtil.ItemCallback<MoviesModel>() {
         override fun areItemsTheSame(oldItem: MoviesModel, newItem: MoviesModel): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: MoviesModel, newItem: MoviesModel): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem == newItem
         }
     }
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MovieItemViewHolder {
+    val differ = AsyncListDiffer(this, differCallback)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         return MovieItemViewHolder(
-            MovieItemBinding.inflate(LayoutInflater.from(parent.context))
+           MovieItemBinding.inflate(LayoutInflater.from(parent.context))
         )
+
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
-        val topRated = getItem(position)
-        holder.bind(topRated)
+        val movie = differ.currentList[position]
+        holder.bind(movie)
     }
 
+    override fun getItemCount(): Int {
+       return differ.currentList.size
+    }
 }

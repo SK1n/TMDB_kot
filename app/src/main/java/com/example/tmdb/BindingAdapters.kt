@@ -23,26 +23,3 @@ fun bindImage(imgView: ImageView,imgUrl: String?) {
         }
     }
 }
-
-@BindingAdapter("topRatedMovies")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<MoviesModel>?) {
-    val adapter = recyclerView.adapter as MoviesAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("tmdbApiStatus")
-fun bindStatus(statusImageView: ImageView, status: MovieModelStatus?) {
-    when (status) {
-        MovieModelStatus.LOADING-> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
-        }
-        MovieModelStatus.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
-        }
-        MovieModelStatus.DONE -> {
-            statusImageView.visibility = View.GONE
-        }
-    }
-}
