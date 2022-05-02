@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentNowPlayingMoviesBinding
 import com.example.tmdb.ui.home.HomeViewModel
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
 
 
@@ -42,7 +43,7 @@ class NowPlayingFragment : Fragment() {
                 response.data?.let {
                         moviesResponse ->
                     moviesAdapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / 20 + 2
+                    val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                     isLastPage = viewModel.moviesPageNumber == totalPages
                 }
             }
@@ -91,7 +92,7 @@ class NowPlayingFragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= 20
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
                 viewModel.getMoviesPage()
