@@ -46,5 +46,10 @@ interface ApiService {
         @Query("api_key") api:String = BuildConfig.API_KEY,
         @Query("page") page:Int = 1,
     ): Response<MoviesPage>
+    @GET("movie/upcoming")
+    suspend fun getUpcoming(
+        @Query("api_key") api:String = BuildConfig.API_KEY,
+        @Query("page") page:Int = 1,
+    ): Response<MoviesPage>
 
 }
