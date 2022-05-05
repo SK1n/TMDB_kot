@@ -62,15 +62,12 @@ class NowPlayingFragment : Fragment() {
     }
 
     private fun hideProgressBar() {
-        binding.nowPlayingProgress.visibility = View.INVISIBLE
-        isLoading = false
+        viewModel.isLoading.value = false
     }
     private fun showProgressBar() {
-        binding.nowPlayingProgress.visibility = View.VISIBLE
-        isLoading = true
+        viewModel.isLoading.value = true
     }
 
-    var isLoading = false;
     var isLastPage = false;
     var isScrolling = false;
 
@@ -89,7 +86,7 @@ class NowPlayingFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isNotLoadingAndNotLastPage = viewModel.isLoading.value == false && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE

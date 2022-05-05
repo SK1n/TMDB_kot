@@ -13,6 +13,7 @@ class PopularViewModel : ViewModel() {
     val moviesPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
     var moviesPageNumber = 1
     var moviesPageResponse: MoviesPage? = null
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         getMoviesPage()

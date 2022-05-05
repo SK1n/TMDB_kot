@@ -33,48 +33,44 @@ class UpcomingFragment : Fragment() {
         _binding = FragmentUpcomingMoviesBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         setupRecyclerView()
-        viewModel.moviesPage.observe(viewLifecycleOwner, Observer {
-                response -> when(response) {
-            is  Resource.Success -> {
-                hideProgressBar()
-                response.data?.let {
-                        moviesResponse ->
-                    moviesAdapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / Constants.QUERY_PAGE_SIZE + 2
-                    isLastPage = viewModel.moviesPageNumber == totalPages
+        viewModel.moviesPage.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let { moviesResponse ->
+                        moviesAdapter.differ.submitList(moviesResponse.results)
+                        val totalPages = moviesResponse.total_pages / Constants.QUERY_PAGE_SIZE + 2
+                        isLastPage = viewModel.moviesPageNumber == totalPages
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Log.d(ContentValues.TAG, "An error occured: $message")
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
                 }
             }
-            is Resource.Error -> {
-                hideProgressBar()
-                response.message?.let { message ->
-                    Log.d(ContentValues.TAG, "An error occured: $message")
-                }
-            }
-            is Resource.Loading -> {
-                showProgressBar()
-            }
-        }
         })
         return binding.root
     }
 
     private fun hideProgressBar() {
-        binding.upcomingProgressBar.visibility = View.INVISIBLE
-        isLoading = false
+        viewModel.isLoading.value = false
     }
+
     private fun showProgressBar() {
-        binding.upcomingProgressBar.visibility = View.VISIBLE
-        isLoading = true
+        viewModel.isLoading.value = true
     }
+    var isLastPage = false
+    var isScrolling = false
 
-    var isLoading = false;
-    var isLastPage = false;
-    var isScrolling = false;
-
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
@@ -85,17 +81,17 @@ class UpcomingFragment : Fragment() {
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
-
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isNotLoadingAndNotLastPage = viewModel.isLoading.value == false && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
+            val shouldPaginate =
+                isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
+            if (shouldPaginate) {
                 viewModel.getMoviesPage()
                 isScrolling = false
             } else {
-                binding.upcomingRecycler.setPadding(0,0,0,0)
+                binding.upcomingRecycler.setPadding(0, 0, 0, 0)
             }
         }
     }
