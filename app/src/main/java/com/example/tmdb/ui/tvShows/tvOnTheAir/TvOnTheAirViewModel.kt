@@ -4,37 +4,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdb.api.RetrofitInstance
-import com.example.tmdb.models.MoviesPage
+import com.example.tmdb.models.TvShowsPageModel
 import com.example.tmdb.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class TvOnTheAirViewModel : ViewModel(){
-    val tvShowPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
+    val tvShowPage: MutableLiveData<Resource<TvShowsPageModel>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var tvShowPageNumber = 1
-    var tvShowPageResponse: MoviesPage? = null
+    var tvShowPageResponse: TvShowsPageModel? = null
 
     init {
-        getMoviesPage()
+        getPage()
     }
 
-    fun getMoviesPage() = viewModelScope.launch {
+    fun getPage() = viewModelScope.launch {
         tvShowPage.postValue(Resource.Loading())
-        val response = RetrofitInstance.api.getNowPlaying(page = tvShowPageNumber)
-        tvShowPage.postValue(handleMoviesPageResponse(response))
+        val response = RetrofitInstance.api.getTvOnTheAir(page = tvShowPageNumber)
+        tvShowPage.postValue(handleTvShowsPageResponse(response))
     }
 
-    private fun handleMoviesPageResponse(response: Response<MoviesPage>): Resource<MoviesPage> {
+    private fun handleTvShowsPageResponse(response: Response<TvShowsPageModel>): Resource<TvShowsPageModel> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 tvShowPageNumber++
                 if(tvShowPageResponse == null) {
                     tvShowPageResponse = resultResponse
                 } else {
-                    val oldMovies = tvShowPageResponse?.results
-                    val newMovies = resultResponse.results
-                    oldMovies?.addAll(newMovies)
+                    val oldTvShows = tvShowPageResponse?.results
+                    val newTvShows = resultResponse.results
+                    oldTvShows?.addAll(newTvShows)
                 }
                 return Resource.Success(tvShowPageResponse ?: resultResponse)
             }

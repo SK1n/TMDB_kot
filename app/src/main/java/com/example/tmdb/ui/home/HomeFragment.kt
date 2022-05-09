@@ -23,7 +23,7 @@ import com.example.tmdb.utils.Resource
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var mAdapter: MoviesAdapter
     private var  page: Int = 1
     var TAG = "HomeFragment"
     private val binding get() = _binding!!
@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
                     hideProgressBar()
                     response.data?.let {
                         moviesResponse ->
-                        moviesAdapter.differ.submitList(moviesResponse.results.toList())
+                        mAdapter.differ.submitList(moviesResponse.results.toList())
                         val totalPages = moviesResponse.total_pages / 20 + 2
                         isLastPage = viewModel.moviesPageNumber == totalPages
                     }
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= 20
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
-                viewModel.getMoviesPage()
+                viewModel.getPage()
                 isScrolling = false
             } else {
                 binding.topRatedRecycler.setPadding(0,0,0,0)
@@ -105,9 +105,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
+        mAdapter = MoviesAdapter()
         binding.topRatedRecycler.apply {
-            adapter = moviesAdapter
+            adapter = mAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@HomeFragment.scrollListener)
 
@@ -128,10 +128,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var navController = view?.findNavController()
-        moviesAdapter.onItemClick = { topRatedMovies ->
+        var navController = view.findNavController()
+        mAdapter.onItemClick = { topRatedMovies ->
             var opt = HomeFragmentDirections.actionNavigationHomeToNavigationMovie(topRatedMovies)
-            navController?.navigate(opt)
+            navController.navigate(opt)
             Log.d("HomeFragment", "onViewCreated: ${topRatedMovies.title}")
         }
     }

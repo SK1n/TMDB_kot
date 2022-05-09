@@ -12,17 +12,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.adapters.MoviesAdapter
+import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsTopRatedBinding
-import com.example.tmdb.databinding.FragmentTvShowsTvOnTheAirBinding
-import com.example.tmdb.ui.tvShows.tvOnTheAir.TvOnTheAirViewModel
 import com.example.tmdb.utils.Constants
 import com.example.tmdb.utils.Resource
 
 class TopRatedTvFragment: Fragment() {
     private val viewModel: TopRatedTvViewModel by viewModels()
     private var _binding: FragmentTvShowsTopRatedBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var tAdapter: TvShowsAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +37,9 @@ class TopRatedTvFragment: Fragment() {
             is  Resource.Success -> {
                 hideProgressBar()
                 response.data?.let {
-                        moviesResponse ->
-                    moviesAdapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / Constants.QUERY_PAGE_SIZE + 2
+                        response ->
+                    tAdapter.differ.submitList(response.results)
+                    val totalPages = response.total_pages / Constants.QUERY_PAGE_SIZE + 2
                     isLastPage = viewModel.topRatedTvPageNumber == totalPages
                 }
             }
@@ -89,7 +87,7 @@ class TopRatedTvFragment: Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
-                viewModel.getMoviesPage()
+                viewModel.getPage()
                 isScrolling = false
             } else {
                 binding.topRatedTvRecycler.setPadding(0,0,0,0)
@@ -98,9 +96,9 @@ class TopRatedTvFragment: Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
+        tAdapter = TvShowsAdapter()
         binding.topRatedTvRecycler.apply {
-            adapter = moviesAdapter
+            adapter = tAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@TopRatedTvFragment.scrollListener)
         }

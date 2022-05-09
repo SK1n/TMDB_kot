@@ -18,10 +18,10 @@ class NowPlayingViewModel : ViewModel() {
     var moviesPageResponse: MoviesPage? = null
 
     init {
-        getMoviesPage()
+        getPage()
     }
 
-    fun getMoviesPage() = viewModelScope.launch {
+    fun getPage() = viewModelScope.launch {
         moviesPage.postValue(Resource.Loading())
         val response = RetrofitInstance.api.getNowPlaying(page = moviesPageNumber)
         moviesPage.postValue(handleMoviesPageResponse(response))

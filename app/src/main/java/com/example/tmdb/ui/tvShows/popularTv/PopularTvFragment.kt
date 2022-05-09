@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.adapters.MoviesAdapter
+import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsPopularBinding
 import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
@@ -20,7 +20,7 @@ import com.example.tmdb.utils.Resource
 class PopularTvFragment: Fragment() {
     private val viewModel: PopularTvViewModel by viewModels()
     private var _binding: FragmentTvShowsPopularBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var tAdapter: TvShowsAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +37,13 @@ class PopularTvFragment: Fragment() {
             is  Resource.Success -> {
                 hideProgressBar()
                 response.data?.let {
-                        moviesResponse ->
-                    moviesAdapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
+                        response ->
+                    tAdapter.differ.submitList(response.results)
+                    val totalPages = response.total_pages / QUERY_PAGE_SIZE + 2
                     isLastPage = viewModel.popularTvShowPageNumber == totalPages
+                    if (isLastPage) {
+                        binding.popularTvProgress.setPadding(0,0,0,0)
+                    }
                 }
             }
             is Resource.Error -> {
@@ -87,18 +90,16 @@ class PopularTvFragment: Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
-                viewModel.getMoviesPage()
+                viewModel.getPage()
                 isScrolling = false
-            } else {
-                binding.tvOnTheAirRecycler.setPadding(0,0,0,0)
             }
         }
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
-        binding.tvOnTheAirRecycler.apply {
-            adapter = moviesAdapter
+        tAdapter = TvShowsAdapter()
+        binding.popularTvRecycler.apply {
+            adapter = tAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@PopularTvFragment.scrollListener)
         }

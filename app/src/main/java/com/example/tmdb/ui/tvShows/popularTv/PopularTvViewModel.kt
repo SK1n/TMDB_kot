@@ -4,41 +4,43 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdb.api.RetrofitInstance
-import com.example.tmdb.models.MoviesPage
+import com.example.tmdb.models.TvShowsPageModel
 import com.example.tmdb.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class PopularTvViewModel: ViewModel() {
-    val popularTvShowPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
+    val popularTvShowPage: MutableLiveData<Resource<TvShowsPageModel>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var popularTvShowPageNumber = 1
-    var popularTvShowPageResponse: MoviesPage? = null
+    var popularTvShowPageResponse: TvShowsPageModel? = null
 
     init {
-        getMoviesPage()
+        getPage()
     }
 
-    fun getMoviesPage() = viewModelScope.launch {
+    fun getPage() = viewModelScope.launch {
         popularTvShowPage.postValue(Resource.Loading())
-        val response = RetrofitInstance.api.getNowPlaying(page = popularTvShowPageNumber)
-        popularTvShowPage.postValue(handleMoviesPageResponse(response))
+        val response = RetrofitInstance.api.getTvPopular(page = popularTvShowPageNumber)
+        popularTvShowPage.postValue(handleTvShowsPageResponse(response))
     }
 
-    private fun handleMoviesPageResponse(response: Response<MoviesPage>): Resource<MoviesPage> {
+    private fun handleTvShowsPageResponse(response: Response<TvShowsPageModel>): Resource<TvShowsPageModel> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 popularTvShowPageNumber++
                 if(popularTvShowPageResponse == null) {
                     popularTvShowPageResponse = resultResponse
                 } else {
-                    val oldMovies = popularTvShowPageResponse?.results
-                    val newMovies = resultResponse.results
-                    oldMovies?.addAll(newMovies)
+                    val oldTvShow = popularTvShowPageResponse?.results
+                    val newTvShow = resultResponse.results
+                    oldTvShow?.addAll(newTvShow)
                 }
                 return Resource.Success(popularTvShowPageResponse ?: resultResponse)
             }
         }
         return Resource.Error(response.message())
     }
+
+
 }
