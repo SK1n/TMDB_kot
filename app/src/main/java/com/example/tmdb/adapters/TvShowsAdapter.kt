@@ -2,18 +2,12 @@ package com.example.tmdb.adapters
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.tmdb.R
-import com.example.tmdb.databinding.MovieItemBinding
 import com.example.tmdb.databinding.TvShowsItemBinding
-import com.example.tmdb.models.MoviesModel
 import com.example.tmdb.models.TvShowModel
-import com.example.tmdb.models.TvShowsPageModel
 import androidx.paging.PagingDataAdapter
 
 class TvShowsAdapter : PagingDataAdapter<TvShowModel, TvShowsAdapter.TvShowsItemViewHolder>(
