@@ -20,7 +20,7 @@
                 android:id="@+id/item_movie_poster"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                app:imageUrl="@{movieItem.poster_path}"
+                app:imageUrl="@{@string/base_poster_path(movieItem.poster_path)}"
                 android:layout_weight=".30" />
 
             <LinearLayout

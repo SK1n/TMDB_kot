@@ -23,7 +23,7 @@ import com.example.tmdb.utils.Resource
 class NowPlayingFragment : Fragment() {
     private val viewModel: NowPlayingViewModel by viewModels()
     private var _binding: FragmentNowPlayingMoviesBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+        private lateinit var moviesAdapter: MoviesAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,

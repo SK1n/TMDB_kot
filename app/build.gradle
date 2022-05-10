@@ -99,6 +99,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.1'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.1'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // Pallete
+    implementation "androidx.palette:palette-ktx:1.0.0"
 }
