@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="title_size">24sp</dimen>
     <dimen name="padding_micro">4dp</dimen>
     <dimen name="padding_small">6dp</dimen>
     <dimen name="padding_normal">16dp</dimen>

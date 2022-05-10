@@ -17,13 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentHomeBinding
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
 
 
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var mAdapter: MoviesAdapter
     private var  page: Int = 1
     var TAG = "HomeFragment"
     private val binding get() = _binding!!
@@ -42,8 +43,8 @@ class HomeFragment : Fragment() {
                     hideProgressBar()
                     response.data?.let {
                         moviesResponse ->
-                        moviesAdapter.differ.submitList(moviesResponse.results.toList())
-                        val totalPages = moviesResponse.total_pages / 20 + 2
+                        mAdapter.differ.submitList(moviesResponse.results.toList())
+                        val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.moviesPageNumber == totalPages
                     }
                 }
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
     var isLastPage = false;
     var isScrolling = false;
 
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
@@ -93,10 +94,10 @@ class HomeFragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= 20
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
-                viewModel.getMoviesPage()
+                viewModel.getPage()
                 isScrolling = false
             } else {
                 binding.topRatedRecycler.setPadding(0,0,0,0)
@@ -105,9 +106,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
+        mAdapter = MoviesAdapter()
         binding.topRatedRecycler.apply {
-            adapter = moviesAdapter
+            adapter = mAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@HomeFragment.scrollListener)
 
@@ -128,10 +129,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var navController = view?.findNavController()
-        moviesAdapter.onItemClick = { topRatedMovies ->
+        var navController = view.findNavController()
+        mAdapter.onItemClick = { topRatedMovies ->
             var opt = HomeFragmentDirections.actionNavigationHomeToNavigationMovie(topRatedMovies)
-            navController?.navigate(opt)
+            navController.navigate(opt)
             Log.d("HomeFragment", "onViewCreated: ${topRatedMovies.title}")
         }
     }
