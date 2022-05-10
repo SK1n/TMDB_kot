@@ -53,14 +53,6 @@ class TopRatedTvFragment : Fragment() {
         }
     }
 
-    private fun hideProgressBar() {
-        viewModel.isLoading.value = false
-    }
-
-    private fun showProgressBar() {
-        viewModel.isLoading.value = true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
