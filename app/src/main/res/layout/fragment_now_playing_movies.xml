@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.tmdb.ui.movies.nowPlaying.NowPlayingViewModel" />
@@ -28,14 +30,13 @@
             app:spanCount="1"
             tools:listitem="@layout/movie_item" />
 
-<ProgressBar
-    android:id="@+id/nowPlayingProgress"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    />
+        <ProgressBar
+            android:id="@+id/nowPlayingProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

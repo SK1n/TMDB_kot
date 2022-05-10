@@ -13,10 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentUpcomingMoviesBinding
-import com.example.tmdb.ui.movies.popular.PopularViewModel
 import com.example.tmdb.utils.Constants
 import com.example.tmdb.utils.Resource
 
@@ -64,6 +62,7 @@ class UpcomingFragment : Fragment() {
     private fun showProgressBar() {
         viewModel.isLoading.value = true
     }
+
     var isLastPage = false
     var isScrolling = false
 

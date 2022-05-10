@@ -29,7 +29,7 @@ class PopularViewModel : ViewModel() {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 moviesPageNumber++
-                if(moviesPageResponse == null) {
+                if (moviesPageResponse == null) {
                     moviesPageResponse = resultResponse
                 } else {
                     val oldMovies = moviesPageResponse?.results

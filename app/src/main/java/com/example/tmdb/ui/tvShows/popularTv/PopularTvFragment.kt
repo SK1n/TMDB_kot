@@ -10,9 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsPopularBinding
 import com.example.tmdb.widgets.MarginDecoration

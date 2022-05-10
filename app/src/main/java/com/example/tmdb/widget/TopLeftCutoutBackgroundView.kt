@@ -8,17 +8,21 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewOutlineProvider
 import com.example.tmdb.R
+import com.example.tmdb.utils.lerp
 import com.google.android.material.shape.CutCornerTreatment
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapePathModel
-import com.example.tmdb.utils.lerp
 
 class TopLeftCutoutBackgroundView : View {
     private val shapeDrawable = MaterialShapeDrawable()
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.TopLeftCutoutBackgroundView)
         color = a.getColor(R.styleable.TopLeftCutoutBackgroundView_backgroundColor, Color.MAGENTA)
         maxCutSize = a.getDimension(R.styleable.TopLeftCutoutBackgroundView_topLeftCutSize, 0f)
@@ -56,7 +60,7 @@ class TopLeftCutoutBackgroundView : View {
     }
 
     class MaterialShapeDrawableOutlineProvider(
-            private val shapeDrawable: MaterialShapeDrawable
+        private val shapeDrawable: MaterialShapeDrawable
     ) : ViewOutlineProvider() {
         private val path = Path()
 

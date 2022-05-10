@@ -17,11 +17,11 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tv_shows_tab_layout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/black_translucent_60"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/red"
-            app:tabTextColor="@color/white"
-            android:layout_height="wrap_content" />
+            app:tabTextColor="@color/white" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/tvShowsPager"

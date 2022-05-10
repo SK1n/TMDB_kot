@@ -7,7 +7,9 @@ import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.TvShowModel
 import java.io.IOException
 
-class PopularTvPagingSource(private val service: ApiService) : PagingSource<Int, TvShowModel>() {
+class PopularTvPagingSource(
+    private val service: ApiService
+) : PagingSource<Int, TvShowModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowModel> {
         val position = params.key ?: 1
         return try {

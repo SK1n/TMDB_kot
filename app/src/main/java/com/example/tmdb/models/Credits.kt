@@ -5,6 +5,7 @@ data class CreditsModel(
     val crew: List<CrewModel>,
     val id: Int
 )
+
 data class CastModel(
     val adult: Boolean,
     val cast_id: Int,
@@ -19,6 +20,7 @@ data class CastModel(
     val popularity: Double,
     val profile_path: String
 )
+
 data class CrewModel(
     val adult: Boolean,
     val credit_id: String,

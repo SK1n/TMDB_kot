@@ -1,20 +1,16 @@
 package com.example.tmdb
-import android.util.Log
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+
 import android.graphics.Bitmap
 import android.view.View
-import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
-import androidx.palette.graphics.Palette
 
 @BindingAdapter("ImageUrl")
 fun bindImageItem(cardView: CardView, url: String?) {
@@ -27,8 +23,11 @@ fun bindImageItem(cardView: CardView, url: String?) {
                 super.onResourceReady(bitmap, transition)
                 Palette.from(bitmap).generate { palette ->
                     val color = palette!!.getVibrantColor(
-                        ContextCompat.getColor(cardView.context,
-                            R.color.black_translucent_60))
+                        ContextCompat.getColor(
+                            cardView.context,
+                            R.color.black_translucent_60
+                        )
+                    )
 
                     cardView.findViewById<View>(R.id.title_background).setBackgroundColor(color)
                 }

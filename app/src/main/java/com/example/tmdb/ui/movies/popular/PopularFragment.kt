@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentPopularMoviesBinding
-import com.example.tmdb.ui.movies.nowPlaying.NowPlayingViewModel
 import com.example.tmdb.utils.Constants
 import com.example.tmdb.utils.Resource
 
@@ -32,27 +31,26 @@ class PopularFragment : Fragment() {
         _binding = FragmentPopularMoviesBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         setupRecyclerView()
-        viewModel.moviesPage.observe(viewLifecycleOwner, Observer {
-                response -> when(response) {
-            is  Resource.Success -> {
-                hideProgressBar()
-                response.data?.let {
-                        moviesResponse ->
-                    moviesAdapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / Constants.QUERY_PAGE_SIZE + 2
-                    isLastPage = viewModel.moviesPageNumber == totalPages
+        viewModel.moviesPage.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let { moviesResponse ->
+                        moviesAdapter.differ.submitList(moviesResponse.results)
+                        val totalPages = moviesResponse.total_pages / Constants.QUERY_PAGE_SIZE + 2
+                        isLastPage = viewModel.moviesPageNumber == totalPages
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Log.d(ContentValues.TAG, "An error occured: $message")
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
                 }
             }
-            is Resource.Error -> {
-                hideProgressBar()
-                response.message?.let { message ->
-                    Log.d(ContentValues.TAG, "An error occured: $message")
-                }
-            }
-            is Resource.Loading -> {
-                showProgressBar()
-            }
-        }
         })
         return binding.root
     }
@@ -60,6 +58,7 @@ class PopularFragment : Fragment() {
     private fun hideProgressBar() {
         viewModel.isLoading.value = false
     }
+
     private fun showProgressBar() {
         viewModel.isLoading.value = true
     }
@@ -70,7 +69,7 @@ class PopularFragment : Fragment() {
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
@@ -86,12 +85,13 @@ class PopularFragment : Fragment() {
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
+            val shouldPaginate =
+                isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
+            if (shouldPaginate) {
                 viewModel.getMoviesPage()
                 isScrolling = false
             } else {
-                binding.popularRecycler.setPadding(0,0,0,0)
+                binding.popularRecycler.setPadding(0, 0, 0, 0)
             }
         }
     }

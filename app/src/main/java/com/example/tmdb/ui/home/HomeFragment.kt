@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentHomeBinding
 import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
@@ -25,7 +23,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
     private lateinit var mAdapter: MoviesAdapter
-    private var  page: Int = 1
+    private var page: Int = 1
     var TAG = "HomeFragment"
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -37,26 +35,25 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setupRecyclerView()
-        viewModel.moviesPage.observe(viewLifecycleOwner, Observer {
-            response -> when(response) {
-                is  Resource.Success -> {
+        viewModel.moviesPage.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let {
-                        moviesResponse ->
+                    response.data?.let { moviesResponse ->
                         mAdapter.differ.submitList(moviesResponse.results.toList())
                         val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.moviesPageNumber == totalPages
                     }
                 }
-            is Resource.Error -> {
-                hideProgressBar()
-                response.message?.let { message ->
-                    Log.d(TAG, "An error occured: $message")
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Log.d(TAG, "An error occured: $message")
+                    }
                 }
-            }
-            is Resource.Loading -> {
-                showProgressBar()
-            }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
             }
         })
         setHasOptionsMenu(true)
@@ -67,19 +64,20 @@ class HomeFragment : Fragment() {
         binding.topRatedProgress.visibility = View.INVISIBLE
         isLoading = false
     }
+
     private fun showProgressBar() {
         binding.topRatedProgress.visibility = View.VISIBLE
         isLoading = true
     }
 
-    var isLoading = false;
-    var isLastPage = false;
-    var isScrolling = false;
+    var isLoading = false
+    var isLastPage = false
+    var isScrolling = false
 
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                 isScrolling = true
             }
         }
@@ -95,12 +93,13 @@ class HomeFragment : Fragment() {
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
-            if(shouldPaginate) {
+            val shouldPaginate =
+                isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
+            if (shouldPaginate) {
                 viewModel.getPage()
                 isScrolling = false
             } else {
-                binding.topRatedRecycler.setPadding(0,0,0,0)
+                binding.topRatedRecycler.setPadding(0, 0, 0, 0)
             }
         }
     }
@@ -116,6 +115,7 @@ class HomeFragment : Fragment() {
 
 
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle presses on the action bar menu items
         when (item.itemId) {

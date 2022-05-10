@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.R
 import com.example.tmdb.adapters.CastAdapter
-import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.bindImage
 import com.example.tmdb.databinding.FragmentMovieDetailsBinding
 import com.example.tmdb.utils.Resource
@@ -34,32 +33,33 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        viewModel.creditsPage.observe(viewLifecycleOwner, Observer {
-                response -> when(response) {
-            is  Resource.Success -> {
-                hideProgressBar()
-                response.data?.let {
-                        castResponse ->
-                    castAdapter.differ.submitList(castResponse.cast)
+        viewModel.creditsPage.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let { castResponse ->
+                        castAdapter.differ.submitList(castResponse.cast)
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Log.d(ContentValues.TAG, "An error occured: $message")
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
                 }
             }
-            is Resource.Error -> {
-                hideProgressBar()
-                response.message?.let { message ->
-                    Log.d(ContentValues.TAG, "An error occured: $message")
-                }
-            }
-            is Resource.Loading -> {
-                showProgressBar()
-            }
-        }
         })
         setHasOptionsMenu(true)
         return binding.root
     }
+
     private fun hideProgressBar() {
         binding.detailsProgressBar.visibility = View.INVISIBLE
     }
+
     private fun showProgressBar() {
         binding.detailsProgressBar.visibility = View.VISIBLE
     }
@@ -73,17 +73,19 @@ class MovieDetailsFragment : Fragment() {
 
 
     private fun bind() {
-        val detailsBackdrop = resources.getString(R.string.base_poster_path,args.movie.poster_path)
+        val detailsBackdrop = resources.getString(R.string.base_poster_path, args.movie.poster_path)
         bindImage(binding.detailsBackdrop, detailsBackdrop)
         bindImage(binding.detailsPoster, detailsBackdrop)
         binding.detailsTitle.text = args.movie.title
         binding.summary.text = args.movie.overview
-        binding.detailsReleaseDate.text = resources.getString(R.string.release,args.movie.release_date)
-        binding.detailsRating.text = resources.getString(R.string.rating,args.movie.vote_average.toString())
+        binding.detailsReleaseDate.text =
+            resources.getString(R.string.release, args.movie.release_date)
+        binding.detailsRating.text =
+            resources.getString(R.string.rating, args.movie.vote_average.toString())
         castAdapter = CastAdapter()
         binding.detailsRecyclerView.apply {
             adapter = castAdapter
-            addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.HORIZONTAL))
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
         }
     }
 

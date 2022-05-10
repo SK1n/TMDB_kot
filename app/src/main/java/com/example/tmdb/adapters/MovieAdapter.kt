@@ -11,19 +11,22 @@ import com.example.tmdb.models.MoviesModel
 
 class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieItemViewHolder>() {
     var onItemClick: ((MoviesModel) -> Unit)? = null
-        inner class MovieItemViewHolder(private var binding: MovieItemBinding): RecyclerView.ViewHolder(binding.root) {
-            fun bind(movie: MoviesModel?) {
-                binding.movieItem = movie
-                binding.executePendingBindings()
-            }
-            init {
-                itemView.setOnClickListener {
-                    onItemClick?.invoke(differ.currentList[bindingAdapterPosition])
-                }
-            }
+
+    inner class MovieItemViewHolder(private var binding: MovieItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: MoviesModel?) {
+            binding.movieItem = movie
+            binding.executePendingBindings()
         }
 
-    private val differCallback = object  : DiffUtil.ItemCallback<MoviesModel>() {
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(differ.currentList[bindingAdapterPosition])
+            }
+        }
+    }
+
+    private val differCallback = object : DiffUtil.ItemCallback<MoviesModel>() {
         override fun areItemsTheSame(oldItem: MoviesModel, newItem: MoviesModel): Boolean {
             return oldItem.id == newItem.id
         }
@@ -35,7 +38,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieItemViewHolder>() 
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         return MovieItemViewHolder(
-           MovieItemBinding.inflate(LayoutInflater.from(parent.context))
+            MovieItemBinding.inflate(LayoutInflater.from(parent.context))
         )
 
     }
@@ -46,6 +49,6 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieItemViewHolder>() 
     }
 
     override fun getItemCount(): Int {
-       return differ.currentList.size
+        return differ.currentList.size
     }
 }

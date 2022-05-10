@@ -6,6 +6,7 @@ data class TvShowsPageModel(
     val total_pages: Int,
     val total_results: Int
 )
+
 data class TvShowModel(
     val backdrop_path: String,
     val first_air_date: String,
