@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class TopRatedTvFragment : Fragment() {
     private val viewModel: TopRatedTvViewModel by viewModels()
     private var _binding: FragmentTvShowsTopRatedBinding? = null
-    private lateinit var tAdapter: TvShowsAdapter
+    private lateinit var pagerAdapter: TvShowsAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,19 +36,19 @@ class TopRatedTvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
-            tAdapter.loadStateFlow.collectLatest { loadStates ->
+            pagerAdapter.loadStateFlow.collectLatest { loadStates ->
                 viewModel.isLoading.value = loadStates.refresh is LoadState.Loading
             }
         }
         lifecycleScope.launch {
-            viewModel.getData().collectLatest { tAdapter.submitData(it) }
+            viewModel.getData().collectLatest { pagerAdapter.submitData(it) }
         }
     }
 
     private fun setupRecyclerView() {
-        tAdapter = TvShowsAdapter()
+        pagerAdapter = TvShowsAdapter()
         binding.topRatedTvRecycler.apply {
-            adapter = tAdapter
+            adapter = pagerAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
