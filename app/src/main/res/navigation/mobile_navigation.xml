@@ -29,10 +29,10 @@
         tools:layout="@layout/fragment_movies" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.tmdb.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_tv_shows"
+        android:name="com.example.tmdb.ui.tvShows.TvShowsFragment"
+        android:label="@string/title_tv_shows"
+        tools:layout="@layout/fragment_tv_shows" />
 
     <fragment
         android:id="@+id/navigation_movie"

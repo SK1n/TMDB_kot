@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">TMDB</string>
     <string name="title_home">Home</string>
+    <string name="title_tv_shows">TV Shows</string>
     <string name="title_movies">Movies</string>
     <string name="title_notifications">Notifications</string>
     <string name="movie_name">Movie name</string>
     <string name="error_fetch_movies">Error fetching the data</string>
     <string name="Movie">Movie</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_show_title">Tv Show Title</string>
+    <string name="tv_show_overview">Tv Show Overview</string>
+    <string name="tv_show_rating">Tv Show Rating</string>
+    <string name="tv_show_release_date">Tv Show Release Date</string>
+    <string name="base_poster_path">https://image.tmdb.org/t/p/w342%s</string>
 </resources>

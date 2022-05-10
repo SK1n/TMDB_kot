@@ -24,7 +24,7 @@ import com.example.tmdb.utils.Resource
 class NowPlayingFragment : Fragment() {
     private val viewModel: NowPlayingViewModel by viewModels()
     private var _binding: FragmentNowPlayingMoviesBinding? = null
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var mAdapter: MoviesAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,7 @@ class NowPlayingFragment : Fragment() {
                 hideProgressBar()
                 response.data?.let {
                         moviesResponse ->
-                    moviesAdapter.differ.submitList(moviesResponse.results)
+                    mAdapter.differ.submitList(moviesResponse.results)
                     val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                     isLastPage = viewModel.moviesPageNumber == totalPages
                 }
@@ -92,7 +92,7 @@ class NowPlayingFragment : Fragment() {
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
-                viewModel.getMoviesPage()
+                viewModel.getPage()
                 isScrolling = false
             } else {
                 binding.nowPlayingRecycler.setPadding(0,0,0,0)
@@ -101,9 +101,9 @@ class NowPlayingFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter()
+        mAdapter = MoviesAdapter()
         binding.nowPlayingRecycler.apply {
-            adapter = moviesAdapter
+            adapter = mAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@NowPlayingFragment.scrollListener)
         }

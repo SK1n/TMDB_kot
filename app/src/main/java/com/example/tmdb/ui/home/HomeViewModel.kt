@@ -18,10 +18,10 @@ class HomeViewModel : ViewModel() {
     var moviesPageResponse: MoviesPage? = null
 
     init {
-        getMoviesPage()
+        getPage()
     }
 
-    fun getMoviesPage() = viewModelScope.launch {
+    fun getPage() = viewModelScope.launch {
         moviesPage.postValue(Resource.Loading())
         val response = RetrofitInstance.api.getTopRatedMovies(page = moviesPageNumber)
         moviesPage.postValue(handleMoviesPageResponse(response))
