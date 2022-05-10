@@ -23,9 +23,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_movies"
         android:name="com.example.tmdb.ui.movies.MoviesFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies" />
 
     <fragment

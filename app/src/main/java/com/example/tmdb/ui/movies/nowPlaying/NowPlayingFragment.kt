@@ -17,13 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentNowPlayingMoviesBinding
 import com.example.tmdb.ui.home.HomeViewModel
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
 
 
 class NowPlayingFragment : Fragment() {
     private val viewModel: NowPlayingViewModel by viewModels()
     private var _binding: FragmentNowPlayingMoviesBinding? = null
-    private lateinit var adapter: MoviesAdapter
+    private lateinit var mAdapter: MoviesAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +42,8 @@ class NowPlayingFragment : Fragment() {
                 hideProgressBar()
                 response.data?.let {
                         moviesResponse ->
-                    adapter.differ.submitList(moviesResponse.results)
-                    val totalPages = moviesResponse.total_pages / 20 + 2
+                    mAdapter.differ.submitList(moviesResponse.results)
+                    val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                     isLastPage = viewModel.moviesPageNumber == totalPages
                 }
             }
@@ -61,15 +62,12 @@ class NowPlayingFragment : Fragment() {
     }
 
     private fun hideProgressBar() {
-        binding.nowPlayingProgress.visibility = View.INVISIBLE
-        isLoading = false
+        viewModel.isLoading.value = false
     }
     private fun showProgressBar() {
-        binding.nowPlayingProgress.visibility = View.VISIBLE
-        isLoading = true
+        viewModel.isLoading.value = true
     }
 
-    var isLoading = false;
     var isLastPage = false;
     var isScrolling = false;
 
@@ -88,10 +86,10 @@ class NowPlayingFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isNotLoadingAndNotLastPage = viewModel.isLoading.value == false && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= 20
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
                 viewModel.getPage()
@@ -103,9 +101,9 @@ class NowPlayingFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = MoviesAdapter()
+        mAdapter = MoviesAdapter()
         binding.nowPlayingRecycler.apply {
-            adapter = adapter
+            adapter = mAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@NowPlayingFragment.scrollListener)
         }

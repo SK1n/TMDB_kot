@@ -1,5 +1,6 @@
 package com.example.tmdb.ui.movies.nowPlaying
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import retrofit2.Response
 
 class NowPlayingViewModel : ViewModel() {
     val moviesPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var moviesPageNumber = 1
     var moviesPageResponse: MoviesPage? = null
 

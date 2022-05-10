@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">TMDB</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_tv_shows">TV Shows</string>
+    <string name="title_movies">Movies</string>
+    <string name="title_notifications">Notifications</string>
     <string name="movie_name">Movie name</string>
     <string name="error_fetch_movies">Error fetching the data</string>
     <string name="Movie">Movie</string>

@@ -1,8 +1,7 @@
 package com.example.tmdb
-
-
 import android.graphics.Bitmap
 import android.view.View
+import android.util.Log
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat

@@ -7,11 +7,9 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_movies"
         android:icon="@drawable/ic_dashboard_black_24dp"
-
-        android:title="@string/title_dashboard" />
-
+        android:title="@string/title_movies" />
     <item
         android:id="@+id/navigation_tv_shows"
         android:icon="@drawable/ic_live_tv_24"

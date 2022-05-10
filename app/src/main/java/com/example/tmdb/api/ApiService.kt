@@ -1,6 +1,4 @@
 package com.example.tmdb.api
-
-
 import androidx.paging.PagingData
 import com.example.tmdb.BuildConfig
 import com.example.tmdb.models.MoviesPage
@@ -60,5 +58,14 @@ interface ApiService {
         @Query("api_key") api:String = BuildConfig.API_KEY,
         @Query("page")page:Int = 1,
     ): Response<TvShowsPageModel>
-
+    @GET("movie/popular")
+    suspend fun getPopular(
+        @Query("api_key") api:String = BuildConfig.API_KEY,
+        @Query("page") page:Int = 1,
+    ): Response<MoviesPage>
+    @GET("movie/upcoming")
+    suspend fun getUpcoming(
+        @Query("api_key") api:String = BuildConfig.API_KEY,
+        @Query("page") page:Int = 1,
+    ): Response<MoviesPage>
 }
