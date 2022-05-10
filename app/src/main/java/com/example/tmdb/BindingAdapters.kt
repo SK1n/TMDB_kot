@@ -1,4 +1,8 @@
 package com.example.tmdb
+import android.util.Log
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import android.graphics.Bitmap
 import android.view.View
 import android.util.Log

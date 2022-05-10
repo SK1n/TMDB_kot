@@ -1,6 +1,7 @@
 package com.example.tmdb.api
 import androidx.paging.PagingData
 import com.example.tmdb.BuildConfig
+import com.example.tmdb.models.CreditsModel
 import com.example.tmdb.models.MoviesPage
 import com.example.tmdb.models.TvShowModel
 import com.example.tmdb.models.TvShowsPageModel
@@ -11,6 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -68,4 +70,10 @@ interface ApiService {
         @Query("api_key") api:String = BuildConfig.API_KEY,
         @Query("page") page:Int = 1,
     ): Response<MoviesPage>
+      @GET("movie/{id}/credits")
+    suspend fun getCredits(
+        @Path(value="id") id: Int,
+        @Query("api_key") api:String = BuildConfig.API_KEY,
+        @Query("page")page:Int = 1,
+    ): Response<CreditsModel>
 }

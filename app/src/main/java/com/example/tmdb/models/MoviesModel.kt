@@ -19,4 +19,5 @@ data class MoviesModel(
     val vote_count: Int?,
     val overview: String?,
     val release_date: String?,
+    val backdrop_path: String?,
 ) : Serializable
