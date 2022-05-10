@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentHomeBinding
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
 
 
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
                     response.data?.let {
                         moviesResponse ->
                         moviesAdapter.differ.submitList(moviesResponse.results.toList())
-                        val totalPages = moviesResponse.total_pages / 20 + 2
+                        val totalPages = moviesResponse.total_pages / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.moviesPageNumber == totalPages
                     }
                 }
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
     var isLastPage = false;
     var isScrolling = false;
 
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
@@ -93,7 +94,7 @@ class HomeFragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= 20
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {
                 viewModel.getMoviesPage()
