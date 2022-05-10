@@ -10,12 +10,15 @@ import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsPopularBinding
 import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.tmdb.utils.Resource
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class PopularTvFragment: Fragment() {
     private val viewModel: PopularTvViewModel by viewModels()
@@ -32,6 +35,7 @@ class PopularTvFragment: Fragment() {
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
         setupRecyclerView()
+
         viewModel.popularTvShowPage.observe(viewLifecycleOwner, Observer {
                 response -> when(response) {
             is  Resource.Success -> {
@@ -60,6 +64,11 @@ class PopularTvFragment: Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch { viewModel.getData().collectLatest { tAdapter.submitData(it) }  }
+    }
+
     private fun hideProgressBar() {
         viewModel.isLoading.value = false
     }
@@ -83,7 +92,6 @@ class PopularTvFragment: Fragment() {
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
-
             val isNotLoadingAndNotLastPage = viewModel.isLoading.value == false && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
@@ -101,7 +109,7 @@ class PopularTvFragment: Fragment() {
         binding.popularTvRecycler.apply {
             adapter = tAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@PopularTvFragment.scrollListener)
+           // addOnScrollListener(this@PopularTvFragment.scrollListener)
         }
     }
 

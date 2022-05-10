@@ -5,13 +5,14 @@ import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
 import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.TvShowModel
+import com.example.tmdb.models.TvShowsPageModel
 import java.io.IOException
 
 class TmdbApiSource(private val service: ApiService): PagingSource<Int, TvShowModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowModel> {
         val position = params.key ?: 1
         return try {
-            val response = service.getTvTopRated(page = position)
+            val response = service.getTvPopular(page = position)
             val repos = response.body()?.results
             val nextKey = if(repos!!.isEmpty()) {
                 null

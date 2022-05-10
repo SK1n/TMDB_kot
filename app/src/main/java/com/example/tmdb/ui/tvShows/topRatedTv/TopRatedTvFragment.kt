@@ -32,7 +32,7 @@ class TopRatedTvFragment: Fragment() {
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
         setupRecyclerView()
-        view
+
         viewModel.topRatedTvPage.observe(viewLifecycleOwner, Observer {
                 response -> when(response) {
             is  Resource.Success -> {
