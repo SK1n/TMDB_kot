@@ -20,7 +20,7 @@ class TvShowsAdapter : PagingDataAdapter<TvShowModel, TvShowsAdapter.TvShowsItem
             }
             init {
                 itemView.setOnClickListener {
-                    onItemClick?.invoke(differ.currentList[adapterPosition])
+                    onItemClick?.invoke(getItem(bindingAdapterPosition)!!)
                 }
             }
         }
@@ -36,7 +36,7 @@ companion object {
     }
 }
 
-    val differ = AsyncListDiffer(this, differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsItemViewHolder {
         return TvShowsItemViewHolder(
            TvShowsItemBinding.inflate(LayoutInflater.from(parent.context))
@@ -45,11 +45,12 @@ companion object {
     }
 
     override fun onBindViewHolder(holder: TvShowsItemViewHolder, position: Int) {
-        val movie = differ.currentList[position]
-        holder.bind(movie)
+        //val movie = differ.currentList[position]
+        holder.bind(getItem(position))
+        //holder.bind(movie)
     }
 
-    override fun getItemCount(): Int {
-       return differ.currentList.size
-    }
+//    override fun getItemCount(): Int {
+//       return differ.currentList.size
+//    }
 }

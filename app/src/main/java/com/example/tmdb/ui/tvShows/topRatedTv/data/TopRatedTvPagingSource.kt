@@ -1,26 +1,25 @@
-package com.example.tmdb.utils
+package com.example.tmdb.ui.tvShows.topRatedTv.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
 import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.TvShowModel
-import com.example.tmdb.models.TvShowsPageModel
 import java.io.IOException
 
-class TmdbApiSource(private val service: ApiService): PagingSource<Int, TvShowModel>() {
+class TopRatedTvPagingSource(private val service: ApiService) : PagingSource<Int, TvShowModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowModel> {
         val position = params.key ?: 1
         return try {
-            val response = service.getTvPopular(page = position)
-            val repos = response.body()?.results
-            val nextKey = if(repos!!.isEmpty()) {
+            val response = service.getTvTopRated(page = position)
+            val tvShows = response.body()?.results
+            val nextKey = if (tvShows!!.isEmpty()) {
                 null
             } else {
                 position + (params.loadSize / 20)
             }
             LoadResult.Page(
-                data = repos,
+                data = tvShows,
                 prevKey = if (position == 1) null else position,
                 nextKey = nextKey
             )
