@@ -12,6 +12,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsTopRatedBinding
+import com.example.tmdb.widgets.MarginDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -49,7 +50,7 @@ class TopRatedTvFragment : Fragment() {
         pagerAdapter = TvShowsAdapter()
         binding.topRatedTvRecycler.apply {
             adapter = pagerAdapter
-            layoutManager = LinearLayoutManager(activity)
+            addItemDecoration(MarginDecoration(context))
         }
     }
 

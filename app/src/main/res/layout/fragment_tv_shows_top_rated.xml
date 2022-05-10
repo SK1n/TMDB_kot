@@ -17,16 +17,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topRatedTvRecycler"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="6dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:lineSpacingExtra="2dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="1"
-            tools:listitem="@layout/movie_item" />
+            app:spanCount="2"
+            tools:listitem="@layout/tv_shows_item" />
 
         <ProgressBar
             android:id="@+id/topRatedTvProgress"
