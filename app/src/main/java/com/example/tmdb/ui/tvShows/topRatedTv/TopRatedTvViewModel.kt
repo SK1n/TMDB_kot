@@ -16,7 +16,7 @@ class TopRatedTvViewModel : ViewModel() {
     fun getData(): Flow<PagingData<TvShowModel>> {
         return Pager(
             config = PagingConfig(
-                pageSize = Constants.NETWORK_PAGE_SIZE,
+                pageSize = Constants.QUERY_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { TopRatedTvPagingSource(RetrofitInstance.api) }

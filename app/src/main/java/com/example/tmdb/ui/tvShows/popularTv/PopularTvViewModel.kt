@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import com.example.tmdb.api.RetrofitInstance
 import com.example.tmdb.models.TvShowModel
 import com.example.tmdb.ui.tvShows.popularTv.data.PopularTvPagingSource
-import com.example.tmdb.utils.Constants.Companion.NETWORK_PAGE_SIZE
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 
 class PopularTvViewModel : ViewModel() {
@@ -16,7 +16,7 @@ class PopularTvViewModel : ViewModel() {
 
     fun getData(): Flow<PagingData<TvShowModel>> {
         return Pager(
-            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+            config = PagingConfig(pageSize = QUERY_PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { PopularTvPagingSource(RetrofitInstance.api) }
         ).flow
     }
