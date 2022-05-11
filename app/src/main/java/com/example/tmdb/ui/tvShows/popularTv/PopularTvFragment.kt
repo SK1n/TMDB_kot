@@ -48,7 +48,6 @@ class PopularTvFragment : Fragment() {
 
     private fun setupRecyclerView() {
         pagerAdapter = TvShowsAdapter()
-
         binding.popularTvRecycler.apply {
             adapter = pagerAdapter
             addItemDecoration(MarginDecoration(context))

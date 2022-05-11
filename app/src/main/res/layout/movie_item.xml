@@ -9,58 +9,45 @@
             type="com.example.tmdb.models.MoviesModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="220dp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="220dp"
+            android:elevation="@dimen/z_app_bar"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:ImageUrl="@{@string/base_poster_path(movieItem.poster_path)}"
+            app:cardElevation="@dimen/z_app_bar">
 
             <ImageView
-                android:id="@+id/item_movie_poster"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight=".30"
-                app:imageUrl="@{@string/base_poster_path(movieItem.poster_path)}" />
+                android:id="@+id/item_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight=".69"
-                android:orientation="vertical">
+            <View
+                android:id="@+id/title_background"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:alpha="0.8"
+                android:background="@color/black_translucent_60"
+                android:gravity="center" />
 
-                <TextView
-                    android:id="@+id/movieTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Movie Title"
-                    android:text="@{movieItem.title}"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/movieOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Movie Overview"
-                    android:text="@{movieItem.overview}" />
-
-                <TextView
-                    android:id="@+id/movieRating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Movie Rating"
-                    android:text="@{`Rating: ` + String.valueOf(movieItem.vote_average)}" />
-
-                <TextView
-                    android:id="@+id/movieReleaseDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Movie Release Date"
-                    android:text="@{`Release date: ` + movieItem.release_date}" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:hint="@string/title_tv_shows"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@{movieItem.title}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </layout>
