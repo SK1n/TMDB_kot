@@ -18,7 +18,7 @@ class HomeViewModel : ViewModel() {
     fun getData(): Flow<PagingData<MoviesModel>> {
         return Pager(
             config = PagingConfig(
-                pageSize = Constants.NETWORK_PAGE_SIZE,
+                pageSize = Constants.QUERY_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { HomePagingSource(RetrofitInstance.api) }

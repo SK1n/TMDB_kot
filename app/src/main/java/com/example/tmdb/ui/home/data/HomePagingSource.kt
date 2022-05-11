@@ -6,6 +6,7 @@ import com.bumptech.glide.load.HttpException
 import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.MoviesModel
 import com.example.tmdb.models.TvShowModel
+import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
 import java.io.IOException
 
 class HomePagingSource(
@@ -19,7 +20,7 @@ class HomePagingSource(
             val nextKey = if (movies!!.isEmpty()) {
                 null
             } else {
-                position + (params.loadSize / 20)
+                position + (params.loadSize / QUERY_PAGE_SIZE)
             }
             LoadResult.Page(
                 data = movies,
