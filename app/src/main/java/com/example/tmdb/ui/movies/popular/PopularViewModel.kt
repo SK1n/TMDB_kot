@@ -2,43 +2,24 @@ package com.example.tmdb.ui.movies.popular
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.tmdb.api.RetrofitInstance
-import com.example.tmdb.models.MoviesPage
-import com.example.tmdb.utils.Resource
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import com.example.tmdb.models.MoviesModel
+import com.example.tmdb.ui.movies.popular.data.PopularPagingSource
+import com.example.tmdb.utils.Constants
+import kotlinx.coroutines.flow.Flow
 
 class PopularViewModel : ViewModel() {
-    val moviesPage: MutableLiveData<Resource<MoviesPage>> = MutableLiveData()
-    var moviesPageNumber = 1
-    var moviesPageResponse: MoviesPage? = null
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
-
-    init {
-        getMoviesPage()
-    }
-
-    fun getMoviesPage() = viewModelScope.launch {
-        moviesPage.postValue(Resource.Loading())
-        val response = RetrofitInstance.api.getPopular(page = moviesPageNumber)
-        moviesPage.postValue(handleMoviesPageResponse(response))
-    }
-
-    private fun handleMoviesPageResponse(response: Response<MoviesPage>): Resource<MoviesPage> {
-        if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                moviesPageNumber++
-                if (moviesPageResponse == null) {
-                    moviesPageResponse = resultResponse
-                } else {
-                    val oldMovies = moviesPageResponse?.results
-                    val newMovies = resultResponse.results
-                    oldMovies?.addAll(newMovies)
-                }
-                return Resource.Success(moviesPageResponse ?: resultResponse)
-            }
-        }
-        return Resource.Error(response.message())
+    fun getData(): Flow<PagingData<MoviesModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Constants.QUERY_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { PopularPagingSource(RetrofitInstance.api) }
+        ).flow
     }
 }
