@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toTopOf="@id/details_rv"
             tools:ignore="PxUsage" />
 
-        <com.example.tmdb.widget.TopLeftCutoutBackgroundView
+        <com.example.tmdb.widgets.TopLeftCutoutBackgroundView
             android:id="@+id/details_appbar_background"
             android:layout_width="0dp"
             android:layout_height="0dp"

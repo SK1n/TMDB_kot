@@ -17,16 +17,17 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <argument
-            android:name="id"
-            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_movies"
         android:name="com.example.tmdb.ui.movies.MoviesFragment"
         android:label="@string/title_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/action_navigation_movies_to_navigation_movie"
+            app:destination="@id/navigation_movie" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tv_shows"
@@ -42,5 +43,18 @@
         <argument
             android:name="movie"
             app:argType="com.example.tmdb.models.MoviesModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_now_playing_movies"
+        android:name="com.example.tmdb.ui.movies.nowPlaying.NowPlayingFragment"
+        android:label="@string/title_now_playing"
+        tools:layout="@layout/fragment_now_playing_movies" >
+        <action
+            android:id="@+id/action_navigation_now_playing_movies_to_navigation_movie"
+            app:destination="@id/navigation_movie"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

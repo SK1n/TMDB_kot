@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -25,7 +26,8 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/movies_pager"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></androidx.viewpager2.widget.ViewPager2>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </layout>

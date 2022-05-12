@@ -1,4 +1,4 @@
-package com.example.tmdb.widget
+package com.example.tmdb.widgets
 
 import android.content.Context
 import android.graphics.Color
