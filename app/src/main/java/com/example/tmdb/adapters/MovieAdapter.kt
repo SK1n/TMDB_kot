@@ -22,11 +22,6 @@ class MoviesAdapter : PagingDataAdapter<MoviesModel, MoviesAdapter.MovieItemView
             binding.executePendingBindings()
         }
 
-//        init {
-//            itemView.setOnClickListener {
-//                onItemClick?.invoke(getItem(bindingAdapterPosition)!!)
-//            }
-//        }
     }
 
     companion object {

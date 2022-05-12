@@ -2,6 +2,7 @@
     <string name="app_name">TMDB</string>
     <string name="title_home">Home</string>
     <string name="title_tv_shows">TV Shows</string>
+    <string name="title_now_playing">Now Playing Movies</string>
     <string name="title_movies">Movies</string>
     <string name="title_notifications">Notifications</string>
     <string name="movie_name">Movie name</string>

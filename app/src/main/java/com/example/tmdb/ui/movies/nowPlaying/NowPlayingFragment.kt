@@ -1,28 +1,32 @@
 package com.example.tmdb.ui.movies.nowPlaying
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentNowPlayingMoviesBinding
-import com.example.tmdb.utils.Constants.Companion.QUERY_PAGE_SIZE
-import com.example.tmdb.utils.Resource
+import com.example.tmdb.ui.movies.MoviesFragmentDirections
+import com.example.tmdb.widgets.MarginDecoration
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class NowPlayingFragment : Fragment() {
     private val viewModel: NowPlayingViewModel by viewModels()
     private var _binding: FragmentNowPlayingMoviesBinding? = null
-    private lateinit var mAdapter: MoviesAdapter
+    private lateinit var pagerAdapter: MoviesAdapter
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +40,31 @@ class NowPlayingFragment : Fragment() {
         setupRecyclerView()
         return binding.root
     }
-    private fun setupRecyclerView() {
-        mAdapter = MoviesAdapter()
-        binding.nowPlayingRecycler.apply {
-            adapter = mAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController()
+        pagerAdapter.onItemClick = {
+            val bundle = bundleOf("movie" to it)
+            navController.navigate(R.id.navigation_movie,bundle)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            pagerAdapter.loadStateFlow.collectLatest { loadStates ->
+                viewModel.isLoading.value = loadStates.refresh is LoadState.Loading
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.getData().collectLatest { pagerAdapter.submitData(it) }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setupRecyclerView() {
+        pagerAdapter = MoviesAdapter()
+        binding.nowPlayingRecycler.apply {
+            adapter = pagerAdapter
+            addItemDecoration(MarginDecoration(context))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -56,5 +75,10 @@ class NowPlayingFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
