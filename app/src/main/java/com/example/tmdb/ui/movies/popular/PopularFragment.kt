@@ -45,7 +45,7 @@ class PopularFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         pagerAdapter.onItemClick = {
-            val bundle = bundleOf("movie" to it)
+            val bundle = bundleOf("person" to it)
             navController.navigate(R.id.navigation_movie,bundle)
         }
 

@@ -1,5 +1,7 @@
 package com.example.tmdb.models
 
+import java.io.Serializable
+
 data class CreditsModel(
     val cast: MutableList<CastModel>,
     val crew: List<CrewModel>,
@@ -19,7 +21,7 @@ data class CastModel(
     val original_name: String,
     val popularity: Double,
     val profile_path: String
-)
+): Serializable
 
 data class CrewModel(
     val adult: Boolean,
