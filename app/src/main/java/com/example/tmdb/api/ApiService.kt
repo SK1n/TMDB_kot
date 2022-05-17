@@ -108,4 +108,11 @@ interface ApiService {
         @Path(value = "id") id: Int,
         @Query("api_key") api: String = BuildConfig.API_KEY,
     ): Response<PersonTvShowModel>
+    @GET("tv/{tv_id}/season/{season_number}/episode/{episode_number}")
+    suspend fun getEpisode(
+        @Path(value = "tv_id") id: Int,
+        @Path(value = "season_number") seasonNumber: Int,
+        @Path(value = "episode_number") episodeNumber: Int,
+        @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<EpisodeModel>
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.tmdb.models.EpisodeModel.GuestStar" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="96dp"
+        android:layout_height="215dp"
+        android:clickable="true"
+        android:elevation="@dimen/z_app_bar"
+        app:cardElevation="@dimen/z_app_bar"
+        app:cardUseCompatPadding="true"
+        tools:ignore="KeyboardInaccessibleWidget">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/cast_item_profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                app:profileUrl="@{item.profile_path}"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/cast_item_real_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cast_item_profile_image"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text="@{item.name}"
+                android:textSize="14sp"
+                android:textColor="?attr/colorSecondary"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cast_item_real_name_text"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text="@{item.character}"
+                android:textColor="#FF757575"
+                android:textSize="10dp"
+                tools:ignore="SpUsage" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

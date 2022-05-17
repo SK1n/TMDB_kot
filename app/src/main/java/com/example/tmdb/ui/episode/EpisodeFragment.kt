@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.tvShows.tvShowsDetails
+package com.example.tmdb.ui.episode
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -7,61 +7,68 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.R
-import com.example.tmdb.adapters.SeasonsAdapter
+import com.example.tmdb.adapters.CastAdapter
+import com.example.tmdb.adapters.GuestAdapter
+import com.example.tmdb.adapters.SeasonsDetailsAdapter
 import com.example.tmdb.bindImage
-import com.example.tmdb.databinding.FragmentTvShowsDetailsBinding
+import com.example.tmdb.databinding.FragmentEpisodeBinding
+import com.example.tmdb.goneIfNull
 import com.example.tmdb.utils.Resource
 import com.example.tmdb.widgets.MarginDecoration
 
-class TvShowsDetailsFragment : Fragment() {
-    private var _binding: FragmentTvShowsDetailsBinding? = null
-    private val viewModel: TvShowsDetailsViewModel by viewModels()
-    val args: TvShowsDetailsFragmentArgs by navArgs()
-    private lateinit var sAdapter: SeasonsAdapter
+class EpisodeFragment : Fragment() {
+    private val viewModel: EpisodeViewModel by viewModels()
+    private var _binding: FragmentEpisodeBinding? = null
+    private lateinit var gAdapter: GuestAdapter
     private val binding get() = _binding!!
-
+    val args: EpisodeFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTvShowsDetailsBinding.inflate(inflater, container, false)
-        setupRecyclerView()
+        _binding = FragmentEpisodeBinding.inflate(inflater)
+        binding.lifecycleOwner = this
         setHasOptionsMenu(true)
+        setupRecyclerView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as  AppCompatActivity).supportActionBar?.title = args.tvShow.name
-        val navController = findNavController()
-        sAdapter.onItemClick = {
-            val bundle = bundleOf("season" to it,"tvShow" to args.tvShow)
-            navController.navigate(R.id.navigation_tv_shows_season_details, bundle)
-       }
-       getData()
+        getData()
         bind()
     }
 
+    private fun bind() {
+        val image =
+            resources.getString(R.string.base_poster_path, args.episode.still_path)
+        val imagePoster =
+            resources.getString(R.string.base_poster_path, args.tvShow.poster_path)
+        bindImage(binding.detailsBackdrop, image)
+        bindImage(binding.detailsPoster, imagePoster)
+        binding.detailsRating.text = resources.getString(R.string.rating, args.episode.vote_average)
+        binding.detailsReleaseDate.text = resources.getString(R.string.release,args.episode.air_date)
+        binding.detailsTitle.text = args.episode.name
+        binding.summary.text = args.episode.overview
+        goneIfNull(binding.detailsReleaseDate,args.episode.air_date)
+        goneIfNull(binding.summaryLabel,args.episode.overview)
+        goneIfNull(binding.summary,args.episode.overview)
+    }
+
     private fun getData() {
-        viewModel.getCreditsPage(args.tvShow.id)
-        viewModel.tvShowDetails.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.getCreditsPage(id = args.tvShow.id, season = args.episode.season_number, episode = args.episode.episode_number)
+        viewModel.episodeDetails.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        sAdapter.differ.submitList(it.seasons)
+                        gAdapter.differ.submitList(it.guest_stars)
                     }
                 }
                 is Resource.Error -> {
@@ -76,22 +83,6 @@ class TvShowsDetailsFragment : Fragment() {
             }
         })
     }
-
-    private fun bind() {
-        val detailsBackdrop =
-            resources.getString(R.string.base_poster_path, args.tvShow.backdrop_path)
-        val detailsPosterPath =
-            resources.getString(R.string.base_poster_path, args.tvShow.poster_path)
-        bindImage(binding.detailsBackdrop, detailsBackdrop)
-        bindImage(binding.detailsPoster, detailsPosterPath)
-        binding.detailsTitle.text = args.tvShow.name
-        binding.summary.text = args.tvShow.overview
-        binding.detailsReleaseDate.text =
-            resources.getString(R.string.release, args.tvShow.first_air_date)
-        binding.detailsRating.text =
-            resources.getString(R.string.rating, args.tvShow.vote_average.toString())
-    }
-
     private fun hideProgressBar() {
         binding.detailsProgressBar.visibility = View.INVISIBLE
     }
@@ -101,12 +92,13 @@ class TvShowsDetailsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        sAdapter = SeasonsAdapter()
-        binding.seasonRecyclerView.apply {
-            adapter = sAdapter
+        gAdapter = GuestAdapter()
+        binding.detailsRecyclerView.apply {
+            adapter = gAdapter
             addItemDecoration(MarginDecoration(context))
         }
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle presses on the action bar menu items

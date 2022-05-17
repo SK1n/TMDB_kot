@@ -8,9 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tmdb.R
 import com.example.tmdb.adapters.SeasonsDetailsAdapter
@@ -40,7 +42,13 @@ class SeasonDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = args.title
+        (activity as AppCompatActivity).supportActionBar?.title = args.tvShow.name
+        var navController = findNavController()
+        eAdapter.onItemClick = {
+            Log.d("SeasonDetails", "onViewCreated: $it")
+            val bundle = bundleOf("episode" to it,"tvShow" to args.tvShow)
+            navController.navigate(R.id.navigation_episode, bundle)
+        }
         getData()
         bind()
     }
@@ -54,7 +62,7 @@ class SeasonDetailsFragment : Fragment() {
     }
 
     private fun getData() {
-        viewModel.getCreditsPage(args.season.id,args.season.season_number)
+        viewModel.getCreditsPage(args.tvShow.id,args.season.season_number)
         viewModel.seasonDetails.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {

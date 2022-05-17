@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentHomeBinding
 import com.example.tmdb.widgets.MarginDecoration
@@ -38,11 +41,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var navController = view.findNavController()
+        var navController = findNavController()
         pagerAdapter.onItemClick = {
-            var opt = HomeFragmentDirections.actionNavigationHomeToNavigationMovie(it)
-            navController.navigate(opt)
-            Log.d("HomeFragment", "onViewCreated: $it")
+            var bundle = bundleOf("movie" to it)
+            navController.navigate(R.id.navigation_movie, bundle)
         }
         viewLifecycleOwner.lifecycleScope.launch {
             pagerAdapter.loadStateFlow.collectLatest { loadStates ->

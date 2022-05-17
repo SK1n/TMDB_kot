@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15425531914893617" />
         <entry key="app/src/main/res/layout/cast_item.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.15425531914893617" />
+        <entry key="app/src/main/res/layout/fragment_episode.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.153125" />
         <entry key="app/src/main/res/layout/fragment_movie_details.xml" value="0.1" />
@@ -34,6 +35,7 @@
         <entry key="app/src/main/res/layout/fragment_tv_shows_top_rated.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_tv_shows_tv_on_the_air.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_upcoming_movies.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/guest_item.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/person_header.xml" value="0.3619791666666667" />
