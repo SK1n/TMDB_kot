@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/fragment_now_playing_movies.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_people.xml" value="0.16944444444444445" />
+        <entry key="app/src/main/res/layout/fragment_person.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_popular_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_popular_tv.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/fragment_tota.xml" value="0.18333333333333332" />
@@ -32,6 +33,7 @@
         <entry key="app/src/main/res/layout/fragment_upcoming_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.1921875" />
+        <entry key="app/src/main/res/layout/person_movie_item.xml" value="0.1953125" />
         <entry key="app/src/main/res/layout/tv_shows_item.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/loading_animation.xml" value="0.1855" />
