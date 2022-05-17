@@ -18,6 +18,8 @@ fun bindImageItem(cardView: CardView, url: String?) {
         .asBitmap()
         .load(url)
         .apply(RequestOptions().centerCrop())
+        .placeholder(R.drawable.loading_animation)
+        .error(R.drawable.ic_error)
         .into(object : BitmapImageViewTarget(cardView.findViewById(R.id.item_poster)) {
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                 super.onResourceReady(bitmap, transition)
@@ -37,5 +39,8 @@ fun bindImageItem(cardView: CardView, url: String?) {
 
 @BindingAdapter("imageUrl")
 fun bindImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context).load(url).placeholder(R.drawable.loading_animation).error(R.drawable.ic_error).into(imageView)
+    Glide.with(imageView.context).load(url)
+        .placeholder(R.drawable.loading_animation)
+        .error(R.drawable.ic_error)
+        .into(imageView)
 }

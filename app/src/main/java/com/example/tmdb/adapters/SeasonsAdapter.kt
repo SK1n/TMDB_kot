@@ -7,32 +7,32 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.databinding.SeasonItemBinding
-import com.example.tmdb.models.SeasonModel
+import com.example.tmdb.models.TvShowsDetails.Season
 
 
 class SeasonsAdapter : RecyclerView.Adapter<SeasonsAdapter.SeasonsItemViewHolder>() {
-    var onItemClick: ((SeasonModel) -> Unit)? = null
+    var onItemClick: ((Season) -> Unit)? = null
 
     inner class SeasonsItemViewHolder(private var binding: SeasonItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: SeasonModel?) {
+        fun bind(item: Season?) {
             binding.item = item
             binding.executePendingBindings()
         }
 
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(differ.currentList[adapterPosition])
+                onItemClick?.invoke(differ.currentList[bindingAdapterPosition])
             }
         }
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<SeasonModel>() {
-        override fun areItemsTheSame(oldItem: SeasonModel, newItem: SeasonModel): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Season>() {
+        override fun areItemsTheSame(oldItem: Season, newItem: Season): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SeasonModel, newItem: SeasonModel): Boolean {
+        override fun areContentsTheSame(oldItem: Season, newItem: Season): Boolean {
             return oldItem == newItem
         }
     }

@@ -82,12 +82,18 @@ interface ApiService {
     suspend fun getCredits(
         @Path(value = "id") id: Int,
         @Query("api_key") api: String = BuildConfig.API_KEY,
-        @Query("page") page: Int = 1,
     ): Response<CreditsModel>
     @GET("tv/{tv_id}")
     suspend fun getSeasons(
         @Path(value = "tv_id") id: Int,
         @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<TvShowsDetails>
+    @GET("tv/{tv_id}/season/{season_number}")
+    suspend fun getSeasonsDetail(
+        @Path(value = "tv_id") id: Int,
+        @Path(value = "season_number") seasonNumber: Int,
+        @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<SeasonDetailModel>
         @Query("page") page: Int = 1,
     ): Response<TvShowSeasonsModel>
     @GET("person/{id}")
