@@ -43,6 +43,9 @@
         <argument
             android:name="movie"
             app:argType="com.example.tmdb.models.MoviesModel" />
+        <action
+            android:id="@+id/action_navigation_movie_to_navigation_person"
+            app:destination="@id/navigation_person" />
     </fragment>
     <fragment
         android:id="@+id/navigation_now_playing_movies"
@@ -56,5 +59,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_person"
+        android:name="com.example.tmdb.ui.person.PersonFragment"
+        tools:layout="@layout/fragment_tv_shows">
+        <argument
+            android:name="person"
+            app:argType="com.example.tmdb.models.CastModel" />
     </fragment>
 </navigation>
