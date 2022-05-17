@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,6 +48,7 @@ class PersonFragment : Fragment() {
         viewModel.getPersonPage(args.person.id)
         viewModel.getMovies(args.person.id)
         viewModel.getTvShows(args.person.id)
+        (activity as AppCompatActivity).supportActionBar?.title = args.person.name
         var navController = findNavController()
         mAdapter.onItemClick = {
             val bundle = bundleOf("movie" to it)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -79,6 +80,7 @@ class MovieDetailsFragment : Fragment() {
             navController.navigate(R.id.navigation_person,bundle)
         }
         viewModel.getCreditsPage(args.movie.id!!)
+        (activity as AppCompatActivity).supportActionBar?.title = args.movie.title
         bind()
     }
 
