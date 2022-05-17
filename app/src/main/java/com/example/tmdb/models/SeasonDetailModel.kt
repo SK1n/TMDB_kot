@@ -22,10 +22,10 @@ data class SeasonDetailModel(
         val overview: String,
         val production_code: String,
         val season_number: Int,
-        val still_path: String,
+        val still_path: String? = "",
         val vote_average: Double,
         val vote_count: Int
-    ) {
+    ) : Serializable {
         data class Crew(
             val adult: Boolean,
             val credit_id: String,
@@ -37,7 +37,7 @@ data class SeasonDetailModel(
             val name: String,
             val original_name: String,
             val popularity: Double,
-            val profile_path: String
+            val profile_path: String? = ""
         )
 
         data class GuestStar(
@@ -51,7 +51,7 @@ data class SeasonDetailModel(
             val order: Int,
             val original_name: String,
             val popularity: Double,
-            val profile_path: String
+            val profile_path: String? = ""
         )
     }
 }

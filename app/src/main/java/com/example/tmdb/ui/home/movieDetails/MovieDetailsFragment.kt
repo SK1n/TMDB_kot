@@ -12,19 +12,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.R
 import com.example.tmdb.adapters.CastAdapter
-import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.bindImage
 import com.example.tmdb.databinding.FragmentMovieDetailsBinding
-import com.example.tmdb.ui.home.HomeFragmentDirections
 import com.example.tmdb.utils.Resource
-import com.example.tmdb.widgets.MarginDecoration
 
 class MovieDetailsFragment : Fragment() {
 
@@ -64,20 +58,20 @@ class MovieDetailsFragment : Fragment() {
         return binding.root
     }
 
-        private fun hideProgressBar() {
-            binding.detailsProgressBar.visibility = View.INVISIBLE
-        }
+    private fun hideProgressBar() {
+        binding.detailsProgressBar.visibility = View.INVISIBLE
+    }
 
-        private fun showProgressBar() {
-            binding.detailsProgressBar.visibility = View.VISIBLE
-        }
+    private fun showProgressBar() {
+        binding.detailsProgressBar.visibility = View.VISIBLE
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var navController = findNavController()
         pagerAdapter.onItemClick = {
             val bundle = bundleOf("person" to it)
-            navController.navigate(R.id.navigation_person,bundle)
+            navController.navigate(R.id.navigation_person, bundle)
         }
         viewModel.getCreditsPage(args.movie.id!!)
         (activity as AppCompatActivity).supportActionBar?.title = args.movie.title
@@ -96,6 +90,7 @@ class MovieDetailsFragment : Fragment() {
         binding.detailsRating.text =
             resources.getString(R.string.rating, args.movie.vote_average.toString())
     }
+
     private fun setupRecyclerView() {
         pagerAdapter = CastAdapter()
         binding.detailsRecyclerView.apply {
