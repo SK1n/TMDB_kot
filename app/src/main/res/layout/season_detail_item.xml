@@ -23,7 +23,7 @@
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:gravity="center"
-            android:text="@{item.episode_number}"
+            android:text="@{String.valueOf(item.episode_number)}"
             />
 
         <ImageView
@@ -43,8 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="Episode name"
+                android:textSize="24sp"
                 android:maxLines="2"
-                android:text="@{item.name}"
+                android:text="@{String.valueOf(item.name)}"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />

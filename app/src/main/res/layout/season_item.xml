@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.tmdb.models.SeasonModel" />
+            type="com.example.tmdb.models.TvShowsDetails.Season" />
     </data>
 
 

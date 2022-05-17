@@ -58,5 +58,18 @@
         <argument
             android:name="tvShow"
             app:argType="com.example.tmdb.models.TvShowModel" />
+        <action
+            android:id="@+id/action_navigation_tv_shows_details_to_navigation_tv_shows_season_details"
+            app:destination="@id/navigation_tv_shows_season_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_tv_shows_season_details"
+        android:name="com.example.tmdb.ui.tvShows.seasonDetails.SeasonDetailsFragment"
+        android:label="Tv Shows Season Details"
+        tools:layout="@layout/fragment_season_details"
+        >
+        <argument
+            android:name="season"
+            app:argType="com.example.tmdb.models.TvShowsDetails$Season" />
     </fragment>
 </navigation>

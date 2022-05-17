@@ -1,5 +1,7 @@
 package com.example.tmdb.models
 
+import java.io.Serializable
+
 data class SeasonDetailModel(
     val _id: String,
     val air_date: String,

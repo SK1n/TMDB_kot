@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdb.api.RetrofitInstance
-import com.example.tmdb.models.TvShowSeasonsModel
+import com.example.tmdb.models.TvShowsDetails
 import com.example.tmdb.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class TvShowsDetailsViewModel : ViewModel() {
-    val tvShowDetails: MutableLiveData<Resource<TvShowSeasonsModel>> = MutableLiveData()
-    var tvShowResponse: TvShowSeasonsModel? = null
+    val tvShowDetails: MutableLiveData<Resource<TvShowsDetails>> = MutableLiveData()
+    var tvShowResponse: TvShowsDetails? = null
 
     fun getCreditsPage(id: Int) = viewModelScope.launch {
         tvShowDetails.postValue(Resource.Loading())
@@ -19,7 +19,7 @@ class TvShowsDetailsViewModel : ViewModel() {
         tvShowDetails.postValue(handleSeasonResponse(response))
     }
 
-    private fun handleSeasonResponse(response: Response<TvShowSeasonsModel>): Resource<TvShowSeasonsModel> {
+    private fun handleSeasonResponse(response: Response<TvShowsDetails>): Resource<TvShowsDetails> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(tvShowResponse ?: resultResponse)
