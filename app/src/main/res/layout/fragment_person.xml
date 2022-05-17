@@ -13,8 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_translucent_60">
+        android:layout_height="match_parent">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -45,7 +44,7 @@
                     android:layout_width="155dp"
                     android:layout_height="155dp"
                     android:layout_marginTop="40dp"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="?attr/colorPrimary"
                     app:cardCornerRadius="250dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,8 +60,7 @@
                             android:id="@+id/personProfilePath"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_error" />
+                            android:scaleType="centerCrop" />
 
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
@@ -81,10 +79,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Name"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
                         android:textSize="24sp"
+                        android:textColor="?attr/colorSecondary"
+                        style="@style/TmdbMargin.Title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/personImgCard" />
@@ -93,23 +90,22 @@
                         android:id="@+id/personBirthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Birthday"
-                        android:textColor="@color/white"
+                        android:gravity="center"
+                        style="@style/TmdbMargin.Small"
                         app:layout_constraintTop_toBottomOf="@+id/personName" />
 
                     <TextView
                         android:id="@+id/personDeathDay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="DeathDay"
+                        style="@style/TmdbMargin.Small"
                         app:layout_constraintTop_toBottomOf="@+id/personBirthday" />
 
                     <TextView
                         android:id="@+id/personBiography"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Biography"
-                        android:textColor="@color/white"
+                        style="@style/TmdbMargin.Body"
                         app:layout_constraintTop_toBottomOf="@+id/personDeathDay" />
 
 
@@ -119,9 +115,7 @@
                     android:id="@+id/moviesText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Movies"
                     android:textSize="24sp"
-                    android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/infoLL"
                    />
 

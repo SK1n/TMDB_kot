@@ -100,7 +100,6 @@ class MovieDetailsFragment : Fragment() {
         pagerAdapter = CastAdapter()
         binding.detailsRecyclerView.apply {
             adapter = pagerAdapter
-            addItemDecoration(MarginDecoration(context))
         }
     }
 

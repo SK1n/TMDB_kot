@@ -47,11 +47,10 @@ class TvShowsDetailsFragment : Fragment() {
         (activity as  AppCompatActivity).supportActionBar?.title = args.tvShow.name
         val navController = findNavController()
         sAdapter.onItemClick = {
-            Log.d("Details", "onViewCreated: $it")
-            val bundle = bundleOf("season" to it)
+            val bundle = bundleOf("season" to it,"title" to args.tvShow.name)
             navController.navigate(R.id.navigation_tv_shows_season_details, bundle)
-        }
-        getData()
+       }
+       getData()
         bind()
     }
 

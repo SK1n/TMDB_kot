@@ -32,7 +32,6 @@
                 android:layout_height="48dp"
                 android:layout_gravity="bottom"
                 android:alpha="0.8"
-                android:background="@color/black_translucent_60"
                 android:gravity="center" />
 
             <TextView
@@ -41,13 +40,8 @@
                 android:layout_height="48dp"
                 android:layout_gravity="bottom"
                 android:gravity="center"
-                android:hint="@string/title_tv_shows"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="@{movieItem.title}"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="12sp" />
+                android:text="@{movieItem.title}" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </layout>

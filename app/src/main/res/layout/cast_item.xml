@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,47 +10,54 @@
             type="com.example.tmdb.models.CastModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="96dp"
+        android:layout_height="215dp"
+        android:clickable="true"
+        android:elevation="@dimen/z_app_bar"
+        app:cardElevation="@dimen/z_app_bar"
+        app:cardUseCompatPadding="true"
+        tools:ignore="KeyboardInaccessibleWidget">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            app:imageUrl="@{@string/base_poster_path(castItem.profile_path)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="80dp"
-            app:cardBackgroundColor="@color/black_translucent_60"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/cast_item_profile_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="125dp"
+                app:profileUrl="@{castItem.profile_path}"
+                tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Cast Member Name"
-                    android:maxLines="3"
-                    android:text="@{castItem.name}"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/cast_item_real_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cast_item_profile_image"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text="@{castItem.name}"
+                android:textSize="14sp"
+                android:textColor="?attr/colorSecondary"
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                />
 
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cast_item_real_name_text"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:gravity="center"
+                android:text="@{castItem.character}"
+                android:textColor="#FF757575"
+                android:textSize="10dp"
+                tools:ignore="SpUsage" />
 
+        </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
 </layout>

@@ -22,7 +22,6 @@
             android:id="@+id/details_backdrop"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/loading_animation"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
@@ -49,7 +48,7 @@
             android:id="@+id/details_gap_filler"
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:background="@color/window_background"
+            android:background="?attr/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/details_rv"
             tools:ignore="PxUsage" />
 
@@ -57,7 +56,7 @@
             android:id="@+id/details_appbar_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:backgroundColor="@color/window_background"
+            app:backgroundColor="?attr/colorPrimary"
             app:topLeftCutSize="@dimen/details_corner_cutout"
             tools:layout_editor_absoluteY="232dp" />
 
@@ -66,8 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/white" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/details_toolbar"
@@ -80,7 +78,7 @@
             android:id="@+id/details_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/window_background"
+            android:background="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,30 +94,26 @@
                     style="@style/TmdbMargin.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_normal"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="@dimen/padding_normal" />
 
                 <TextView
                     android:id="@+id/details_rating"
                     style="@style/TmdbMargin.Small"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/summary_label"
                     style="@style/TmdbMargin.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/summary"
-                    android:textColor="#757575" />
+                    android:text="@string/summary" />
 
                 <TextView
                     android:id="@+id/summary"
                     style="@style/TmdbMargin.Body"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white" />
+                    android:layout_height="wrap_content" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

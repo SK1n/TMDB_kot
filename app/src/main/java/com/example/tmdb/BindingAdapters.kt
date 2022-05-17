@@ -1,8 +1,10 @@
 package com.example.tmdb
 
 import android.graphics.Bitmap
+import android.opengl.Visibility
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -44,3 +46,21 @@ fun bindImage(imageView: ImageView, url: String?) {
         .error(R.drawable.ic_error)
         .into(imageView)
 }
+
+@BindingAdapter("profileUrl")
+fun bindProfileImage(imageView: ImageView, url: String?) {
+    val options = RequestOptions()
+        .centerCrop()
+        .error(R.drawable.ic_error)
+
+    Glide.with(imageView.context)
+        .load(IMAGE_LOW_RES_BASE_URL.plus(url))
+        .apply(options)
+        .into(imageView)
+}
+@BindingAdapter("goneIfNull")
+fun goneIfNull(view: View, it: Any?) {
+    view.visibility = if (it == null) View.GONE else View.VISIBLE
+}
+
+private const val IMAGE_LOW_RES_BASE_URL = "https://image.tmdb.org/t/p/w500"

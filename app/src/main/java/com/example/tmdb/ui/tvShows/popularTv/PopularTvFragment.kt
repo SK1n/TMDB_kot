@@ -43,6 +43,7 @@ class PopularTvFragment : Fragment() {
         val navController = findNavController()
         pagerAdapter.onItemClick = {
             val bundle = bundleOf("tvShow" to it)
+
             navController.navigate(R.id.navigation_tv_shows_details, bundle)
             Log.d("PopularTv", "onViewCreated: Pressed $bundle")
         }

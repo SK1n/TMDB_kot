@@ -20,6 +20,7 @@ import com.example.tmdb.adapters.PersonMovieAdapter
 import com.example.tmdb.adapters.PersonTvShowAdapter
 import com.example.tmdb.bindImage
 import com.example.tmdb.databinding.FragmentPersonBinding
+import com.example.tmdb.goneIfNull
 import com.example.tmdb.models.PersonModel
 import com.example.tmdb.utils.Resource
 import com.example.tmdb.widgets.MarginDecoration
@@ -30,6 +31,7 @@ class PersonFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var mAdapter: PersonMovieAdapter
     private lateinit var tAdapter: PersonTvShowAdapter
+    private val TAG = "PersonFragment"
     val args: PersonFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,8 +57,10 @@ class PersonFragment : Fragment() {
             navController.navigate(R.id.navigation_movie, bundle)
         }
         tAdapter.onItemClick = {
+            Log.d(TAG, "onViewCreated: $it")
             val bundle = bundleOf("tvShow" to it)
             navController.navigate(R.id.navigation_tv_shows_details, bundle)
+
         }
         getPersonPage()
         getPersonMovie()
@@ -121,9 +125,9 @@ class PersonFragment : Fragment() {
         val profilePath = resources.getString(R.string.base_poster_path, response.profile_path)
         (requireActivity() as MainActivity).title = response.name
         binding.personName.text = response.name
-        binding.personBirthday.text = "Birth day: " + response.birthday
-        binding.personDeathDay.text =
-            if (response.deathday != null) "Death day: " + response.deathday.toString() else "   "
+        binding.personBirthday.text = resources.getString(R.string.birthday,response.birthday)
+        binding.personDeathDay.text = resources.getString(R.string.deathday,response.deathday)
+        goneIfNull(binding.personDeathDay,response.deathday)
         binding.personBiography.text = response.biography
         bindImage(binding.personProfilePath, profilePath)
     }
