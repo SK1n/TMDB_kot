@@ -1,6 +1,10 @@
 package com.example.tmdb.api
 
 import com.example.tmdb.BuildConfig
+import com.example.tmdb.models.CreditsModel
+import com.example.tmdb.models.MoviesPage
+import com.example.tmdb.models.TvShowSeasonsModel
+import com.example.tmdb.models.TvShowsPageModel
 import com.example.tmdb.models.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -90,4 +94,21 @@ interface ApiService {
         @Path(value = "season_number") seasonNumber: Int,
         @Query("api_key") api: String = BuildConfig.API_KEY,
     ): Response<SeasonDetailModel>
+        @Query("page") page: Int = 1,
+    ): Response<TvShowSeasonsModel>
+    @GET("person/{id}")
+    suspend fun getPerson(
+        @Path(value = "id") id: Int,
+        @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<PersonModel>
+    @GET("person/{id}/movie_credits")
+    suspend fun getPersonMovie(
+        @Path(value = "id") id: Int,
+        @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<PersonMovieModel>
+    @GET("person/{id}/tv_credits")
+    suspend fun getPersonTvShows(
+        @Path(value = "id") id: Int,
+        @Query("api_key") api: String = BuildConfig.API_KEY,
+    ): Response<PersonTvShowModel>
 }
