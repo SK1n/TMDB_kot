@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.tmdb.R
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsTvOnTheAirBinding
 import com.example.tmdb.widgets.MarginDecoration
@@ -35,6 +38,11 @@ class TvOnTheAirFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var navController = findNavController()
+        pagerAdapter.onItemClick = {
+            val bundle = bundleOf("tvShow" to it)
+            navController.navigate(R.id.navigation_tv_shows_details, bundle)
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             pagerAdapter.loadStateFlow.collectLatest { loadStates ->
                 viewModel.isLoading.value = loadStates.refresh is LoadState.Loading

@@ -52,10 +52,10 @@ class PersonFragment : Fragment() {
             val bundle = bundleOf("movie" to it)
             navController.navigate(R.id.navigation_movie, bundle)
         }
-//        tAdapter.onItemClick = {
-//            val bundle = bundleOf("tvShow" to it)
-//            navController.navigate(R.id.navigation_tv_shows, bundle)
-//        }
+        tAdapter.onItemClick = {
+            val bundle = bundleOf("tvShow" to it)
+            navController.navigate(R.id.navigation_tv_shows_details, bundle)
+        }
         getPersonPage()
         getPersonMovie()
         getPersonTvShows()

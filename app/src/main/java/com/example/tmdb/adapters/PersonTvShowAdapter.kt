@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.databinding.CastItemBinding
 import com.example.tmdb.databinding.MovieItemBinding
+import com.example.tmdb.databinding.PersonTvShowItemBinding
 import com.example.tmdb.databinding.TvShowsItemBinding
 import com.example.tmdb.models.CastModel
 import com.example.tmdb.models.MoviesModel
@@ -17,7 +18,7 @@ import com.example.tmdb.models.TvShowModel
 class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsViewHolder>() {
     var onItemClick: ((TvShowModel) -> Unit)? = null
 
-    inner class TvShowsViewHolder(private var binding: TvShowsItemBinding) :
+    inner class TvShowsViewHolder(private var binding: PersonTvShowItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TvShowModel?) {
             binding.tvShowsItem = item
@@ -26,7 +27,7 @@ class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsView
 
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(differ.currentList[adapterPosition])
+                onItemClick?.invoke(differ.currentList[bindingAdapterPosition])
             }
         }
     }
@@ -42,7 +43,7 @@ class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsView
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonTvShowAdapter.TvShowsViewHolder {
         return TvShowsViewHolder(
-            TvShowsItemBinding.inflate(LayoutInflater.from(parent.context))
+            PersonTvShowItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
 
     }

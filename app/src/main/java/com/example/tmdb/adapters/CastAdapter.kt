@@ -22,7 +22,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastItemViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(differ.currentList[adapterPosition])
+                onItemClick?.invoke(differ.currentList[bindingAdapterPosition])
             }
         }
     }
