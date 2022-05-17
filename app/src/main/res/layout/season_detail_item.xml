@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.tmdb.models.SeasonDetailModel.Episode" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@color/black_translucent_60"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@{item.episode_number}"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_weight="4"
+            app:imageUrl="@{@string/base_poster_path(item.still_path)}" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Episode name"
+                android:maxLines="2"
+                android:text="@{item.name}"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{item.overview.isEmpty() ? `No episode description` : item.overview}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
