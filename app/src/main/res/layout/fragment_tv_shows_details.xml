@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.R.drawable" />
+
+        <variable
+            name="movieDetailsItem"
+            type="com.example.tmdb.models.TvShowModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/details_motion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/scene_show_details">
+
+        <ImageView
+            android:id="@+id/details_backdrop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/details_backdrop_scrim"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/details_backdrop"
+            app:layout_constraintEnd_toEndOf="@id/details_backdrop"
+            app:layout_constraintStart_toStartOf="@id/details_backdrop"
+            app:layout_constraintTop_toTopOf="@id/details_backdrop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/details_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_connection_error"
+            android:scaleType="centerCrop"
+            android:transformPivotX="0px"
+            android:transformPivotY="0px" />
+
+        <!-- Needed to fill a rounding error gap in MotionLayout. See https://issuetracker.google.com/112728689 -->
+        <View
+            android:id="@+id/details_gap_filler"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/window_background"
+            app:layout_constraintBottom_toTopOf="@id/details_rv"
+            tools:ignore="PxUsage" />
+
+        <com.example.tmdb.widgets.TopLeftCutoutBackgroundView
+            android:id="@+id/details_appbar_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:backgroundColor="@color/window_background"
+            app:topLeftCutSize="@dimen/details_corner_cutout"
+            tools:layout_editor_absoluteY="232dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/details_title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/white"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/details_rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/window_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_appbar_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/details_release_date"
+                    style="@style/TmdbMargin.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/details_rating"
+                    style="@style/TmdbMargin.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/summary_label"
+                    style="@style/TmdbMargin.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary"
+                    android:textColor="#757575" />
+
+                <TextView
+                    android:id="@+id/summary"
+                    style="@style/TmdbMargin.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/seasonRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/season_item" />
+
+                    <ProgressBar
+                        android:id="@+id/detailsProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/seasonRecyclerView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

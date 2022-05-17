@@ -56,13 +56,13 @@ class MovieDetailsFragment : Fragment() {
         return binding.root
     }
 
-    private fun hideProgressBar() {
-        binding.detailsProgressBar.visibility = View.INVISIBLE
-    }
+        private fun hideProgressBar() {
+            binding.detailsProgressBar.visibility = View.INVISIBLE
+        }
 
-    private fun showProgressBar() {
-        binding.detailsProgressBar.visibility = View.VISIBLE
-    }
+        private fun showProgressBar() {
+            binding.detailsProgressBar.visibility = View.VISIBLE
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

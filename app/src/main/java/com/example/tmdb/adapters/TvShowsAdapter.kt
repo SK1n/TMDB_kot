@@ -20,12 +20,6 @@ class TvShowsAdapter : PagingDataAdapter<TvShowModel, TvShowsAdapter.TvShowsItem
             binding.tvShowsItem = item
             binding.executePendingBindings()
         }
-
-        init {
-            itemView.setOnClickListener {
-                onItemClick?.invoke(getItem(bindingAdapterPosition)!!)
-            }
-        }
     }
 
     companion object {
@@ -48,5 +42,6 @@ class TvShowsAdapter : PagingDataAdapter<TvShowModel, TvShowsAdapter.TvShowsItem
 
     override fun onBindViewHolder(holder: TvShowsItemViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener{onItemClick?.invoke(getItem(position)!!)}
     }
 }

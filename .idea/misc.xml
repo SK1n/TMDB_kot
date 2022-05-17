@@ -8,6 +8,7 @@
         <entry key="..\:/Users/luys2/Desktop/projects/TMDB/app/src/main/res/layout/fragment_home.xml" value="0.371875" />
         <entry key="..\:/Users/luys2/Desktop/projects/TMDB/app/src/main/res/layout/movie_item.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_connection_error.xml" value="0.2965" />
+        <entry key="app/src/main/res/drawable/ic_error.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/loading_animation.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/loading_img.xml" value="0.1855" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.15425531914893617" />
@@ -21,17 +22,22 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29257246376811596" />
         <entry key="app/src/main/res/layout/fragment_now_playing_movies.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_people.xml" value="0.16944444444444445" />
+        <entry key="app/src/main/res/layout/fragment_person.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_popular_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_popular_tv.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/fragment_tota.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/fragment_tv_on_the_air.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_tv_shows.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_tv_shows_details.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_tv_shows_popular.xml" value="0.2246376811594203" />
         <entry key="app/src/main/res/layout/fragment_tv_shows_top_rated.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_tv_shows_tv_on_the_air.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_upcoming_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.1921875" />
+        <entry key="app/src/main/res/layout/person_header.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout/person_movie_item.xml" value="0.1953125" />
+        <entry key="app/src/main/res/layout/season_item.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/tv_shows_item.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/loading_animation.xml" value="0.1855" />
