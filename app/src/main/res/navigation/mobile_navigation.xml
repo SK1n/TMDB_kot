@@ -33,7 +33,11 @@
         android:id="@+id/navigation_tv_shows"
         android:name="com.example.tmdb.ui.tvShows.TvShowsFragment"
         android:label="@string/title_tv_shows"
-        tools:layout="@layout/fragment_tv_shows" />
+        tools:layout="@layout/fragment_tv_shows" >
+        <action
+            android:id="@+id/action_navigation_tv_shows_to_navigation_tv_shows_details"
+            app:destination="@id/navigation_tv_shows_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_movie"
@@ -48,17 +52,15 @@
             app:destination="@id/navigation_person" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_now_playing_movies"
-        android:name="com.example.tmdb.ui.movies.nowPlaying.NowPlayingFragment"
-        android:label="@string/title_now_playing"
-        tools:layout="@layout/fragment_now_playing_movies" >
-        <action
-            android:id="@+id/action_navigation_now_playing_movies_to_navigation_movie"
-            app:destination="@id/navigation_movie"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        android:id="@+id/navigation_tv_shows_details"
+        android:name="com.example.tmdb.ui.tvShows.tvShowsDetails.TvShowsDetailsFragment"
+        android:label="Tv Shows Details"
+        tools:layout="@layout/fragment_tv_shows_details"
+        >
+
+        <argument
+            android:name="tvShow"
+            app:argType="com.example.tmdb.models.TvShowModel" />
     </fragment>
     <fragment
         android:id="@+id/navigation_person"

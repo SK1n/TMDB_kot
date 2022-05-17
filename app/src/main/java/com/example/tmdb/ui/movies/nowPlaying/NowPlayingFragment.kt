@@ -1,7 +1,6 @@
 package com.example.tmdb.ui.movies.nowPlaying
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,14 +9,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentNowPlayingMoviesBinding
-import com.example.tmdb.ui.movies.MoviesFragmentDirections
 import com.example.tmdb.widgets.MarginDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,7 +42,7 @@ class NowPlayingFragment : Fragment() {
         val navController = findNavController()
         pagerAdapter.onItemClick = {
             val bundle = bundleOf("movie" to it)
-            navController.navigate(R.id.navigation_movie,bundle)
+            navController.navigate(R.id.navigation_movie, bundle)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

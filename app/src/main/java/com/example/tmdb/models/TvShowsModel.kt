@@ -1,5 +1,7 @@
 package com.example.tmdb.models
 
+import java.io.Serializable
+
 data class TvShowsPageModel(
     val page: Int,
     val results: MutableList<TvShowModel>,
@@ -21,4 +23,4 @@ data class TvShowModel(
     val poster_path: String,
     val vote_average: Double,
     val vote_count: Int
-)
+): Serializable
