@@ -128,7 +128,9 @@ class PersonFragment : Fragment() {
         binding.personBirthday.text = resources.getString(R.string.birthday,response.birthday)
         binding.personDeathDay.text = resources.getString(R.string.deathday,response.deathday)
         goneIfNull(binding.personDeathDay,response.deathday)
+        goneIfNull(binding.personBirthday,response.birthday)
         binding.personBiography.text = response.biography
+        goneIfNull(binding.personBiography,response.biography)
         bindImage(binding.personProfilePath, profilePath)
     }
 
