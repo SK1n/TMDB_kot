@@ -13,15 +13,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@color/black_translucent_60"
+        android:background="?attr/colorPrimary"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="0"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
             android:gravity="center"
             android:text="@{String.valueOf(item.episode_number)}"
             />
@@ -42,21 +39,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Episode name"
                 android:textSize="24sp"
-                android:maxLines="2"
                 android:text="@{String.valueOf(item.name)}"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textAlignment="center" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@{item.overview.isEmpty() ? `No episode description` : item.overview}"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                style="@style/TmdbMargin.Body"
+                />
         </LinearLayout>
     </LinearLayout>
 </layout>

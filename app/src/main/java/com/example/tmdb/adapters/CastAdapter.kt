@@ -39,7 +39,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastItemViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastItemViewHolder {
         return CastItemViewHolder(
-            CastItemBinding.inflate(LayoutInflater.from(parent.context))
+            CastItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
 
     }

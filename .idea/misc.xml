@@ -25,7 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_person.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_popular_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_popular_tv.xml" value="0.18333333333333332" />
-        <entry key="app/src/main/res/layout/fragment_season_details.xml" value="0.31504986400725293" />
+        <entry key="app/src/main/res/layout/fragment_season_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_tota.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/fragment_tv_on_the_air.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_tv_shows.xml" value="0.2" />
@@ -39,7 +39,7 @@
         <entry key="app/src/main/res/layout/person_header.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/person_movie_item.xml" value="0.1953125" />
         <entry key="app/src/main/res/layout/person_tv_show_item.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/season_detail_item.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/season_detail_item.xml" value="0.2365038560411311" />
         <entry key="app/src/main/res/layout/season_item.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/layout/tv_shows_item.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16041666666666668" />

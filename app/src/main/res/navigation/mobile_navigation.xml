@@ -74,6 +74,9 @@
         <argument
             android:name="season"
             app:argType="com.example.tmdb.models.TvShowsDetails$Season" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/navigation_person"

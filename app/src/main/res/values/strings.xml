@@ -17,4 +17,6 @@
     <string name="tv_show_release_date">Tv Show Release Date</string>
     <string name="episode_count">Episodes %d</string>
     <string name="base_poster_path">https://image.tmdb.org/t/p/w342%s</string>
+    <string name="birthday">Birth day: %s</string>
+    <string name="deathday">Death day: %s</string>
 </resources>
