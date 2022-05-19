@@ -6,19 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.databinding.CastItemBinding
-import com.example.tmdb.databinding.MovieItemBinding
-import com.example.tmdb.databinding.PersonTvShowItemBinding
-import com.example.tmdb.databinding.TvShowsItemBinding
-import com.example.tmdb.models.CastModel
-import com.example.tmdb.models.MoviesModel
+import com.example.tmdb.databinding.ItemPersonTvShowBinding
 import com.example.tmdb.models.TvShowModel
 
 
 class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsViewHolder>() {
     var onItemClick: ((TvShowModel) -> Unit)? = null
 
-    inner class TvShowsViewHolder(private var binding: PersonTvShowItemBinding) :
+    inner class TvShowsViewHolder(private var binding: ItemPersonTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TvShowModel?) {
             binding.tvShowsItem = item
@@ -31,6 +26,7 @@ class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsView
             }
         }
     }
+
     private val differCallback = object : DiffUtil.ItemCallback<TvShowModel>() {
         override fun areItemsTheSame(oldItem: TvShowModel, newItem: TvShowModel): Boolean {
             return oldItem.id == newItem.id
@@ -41,9 +37,12 @@ class PersonTvShowAdapter : RecyclerView.Adapter<PersonTvShowAdapter.TvShowsView
         }
     }
     val differ = AsyncListDiffer(this, differCallback)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonTvShowAdapter.TvShowsViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PersonTvShowAdapter.TvShowsViewHolder {
         return TvShowsViewHolder(
-            PersonTvShowItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemPersonTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     }

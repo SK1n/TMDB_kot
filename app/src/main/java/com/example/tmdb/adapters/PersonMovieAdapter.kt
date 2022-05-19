@@ -6,17 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.databinding.CastItemBinding
-import com.example.tmdb.databinding.MovieItemBinding
-import com.example.tmdb.databinding.PersonMovieItemBinding
-import com.example.tmdb.models.CastModel
+import com.example.tmdb.databinding.ItemPersonMovieBinding
 import com.example.tmdb.models.MoviesModel
 
 
 class PersonMovieAdapter : RecyclerView.Adapter<PersonMovieAdapter.MovieItemViewHolder>() {
     var onItemClick: ((MoviesModel) -> Unit)? = null
 
-    inner class MovieItemViewHolder(private var binding: PersonMovieItemBinding) :
+    inner class MovieItemViewHolder(private var binding: ItemPersonMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MoviesModel?) {
             binding.movieItem = item
@@ -29,6 +26,7 @@ class PersonMovieAdapter : RecyclerView.Adapter<PersonMovieAdapter.MovieItemView
             }
         }
     }
+
     private val differCallback = object : DiffUtil.ItemCallback<MoviesModel>() {
         override fun areItemsTheSame(oldItem: MoviesModel, newItem: MoviesModel): Boolean {
             return oldItem.id == newItem.id
@@ -39,9 +37,12 @@ class PersonMovieAdapter : RecyclerView.Adapter<PersonMovieAdapter.MovieItemView
         }
     }
     val differ = AsyncListDiffer(this, differCallback)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonMovieAdapter.MovieItemViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PersonMovieAdapter.MovieItemViewHolder {
         return MovieItemViewHolder(
-            PersonMovieItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemPersonMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     }

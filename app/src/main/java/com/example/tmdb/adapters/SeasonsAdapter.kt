@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.databinding.SeasonItemBinding
+import com.example.tmdb.databinding.ItemSeasonsBinding
 import com.example.tmdb.models.TvShowsDetails.Season
 
 
 class SeasonsAdapter : RecyclerView.Adapter<SeasonsAdapter.SeasonsItemViewHolder>() {
     var onItemClick: ((Season) -> Unit)? = null
 
-    inner class SeasonsItemViewHolder(private var binding: SeasonItemBinding) :
+    inner class SeasonsItemViewHolder(private var binding: ItemSeasonsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Season?) {
             binding.item = item
@@ -39,7 +39,7 @@ class SeasonsAdapter : RecyclerView.Adapter<SeasonsAdapter.SeasonsItemViewHolder
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeasonsItemViewHolder {
         return SeasonsItemViewHolder(
-            SeasonItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemSeasonsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     }
