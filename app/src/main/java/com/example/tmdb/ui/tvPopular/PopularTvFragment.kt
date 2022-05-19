@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.tmdb.R
@@ -25,6 +26,7 @@ class PopularTvFragment : Fragment() {
     private var _binding: FragmentTvShowsPopularBinding? = null
     private lateinit var pagerAdapter: TvShowsAdapter
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +37,7 @@ class PopularTvFragment : Fragment() {
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
         setupRecyclerView()
+        navController = findNavController()
         return binding.root
     }
 
@@ -68,7 +71,7 @@ class PopularTvFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }

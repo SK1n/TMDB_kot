@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.tmdb.R
@@ -23,6 +24,7 @@ class TopRatedTvFragment : Fragment() {
     private var _binding: FragmentTvShowsTopRatedBinding? = null
     private lateinit var pagerAdapter: TvShowsAdapter
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +40,6 @@ class TopRatedTvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var navController = findNavController()
         pagerAdapter.onItemClick = {
             val bundle = bundleOf("tvShow" to it)
             navController.navigate(R.id.navigation_tv_shows_details, bundle)
@@ -64,7 +65,7 @@ class TopRatedTvFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }

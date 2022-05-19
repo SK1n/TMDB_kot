@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tmdb.MainActivity
@@ -31,8 +32,8 @@ class DetailsPersonFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var mAdapter: PersonMovieAdapter
     private lateinit var tAdapter: PersonTvShowAdapter
-    private val TAG = "PersonFragment"
     private val args: DetailsPersonFragmentArgs by navArgs()
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +43,7 @@ class DetailsPersonFragment : Fragment() {
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         setupRecyclerView()
+        navController = findNavController()
         return binding.root
     }
 
@@ -51,13 +53,11 @@ class DetailsPersonFragment : Fragment() {
         viewModel.getMovies(args.person.id)
         viewModel.getTvShows(args.person.id)
         (activity as AppCompatActivity).supportActionBar?.title = args.person.name
-        var navController = findNavController()
         mAdapter.onItemClick = {
             val bundle = bundleOf("movie" to it)
             navController.navigate(R.id.navigation_movie, bundle)
         }
         tAdapter.onItemClick = {
-            Log.d(TAG, "onViewCreated: $it")
             val bundle = bundleOf("tvShow" to it)
             navController.navigate(R.id.navigation_tv_shows_details, bundle)
 
@@ -173,7 +173,7 @@ class DetailsPersonFragment : Fragment() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }

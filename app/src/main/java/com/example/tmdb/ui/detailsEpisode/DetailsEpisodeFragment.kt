@@ -11,6 +11,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tmdb.R
@@ -28,6 +29,7 @@ class DetailsEpisodeFragment : Fragment() {
     private lateinit var gAdapter: GuestAdapter
     private val binding get() = _binding!!
     private val args: DetailsEpisodeFragmentArgs by navArgs()
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,12 +39,13 @@ class DetailsEpisodeFragment : Fragment() {
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         setupRecyclerView()
+        navController = findNavController()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController = findNavController()
+
         gAdapter.onItemClick = {
             val profilePath = if(it.profile_path == null || it.profile_path == "") "" else it.profile_path
             val bundle = bundleOf(
@@ -62,7 +65,6 @@ class DetailsEpisodeFragment : Fragment() {
                 )
             )
             navController.navigate(R.id.navigation_person, bundle)
-            Log.d("PopularTv", "onViewCreated: Pressed $bundle")
         }
         getData()
         bind()
@@ -133,7 +135,7 @@ class DetailsEpisodeFragment : Fragment() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }

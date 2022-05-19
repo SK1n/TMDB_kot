@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tmdb.R
@@ -26,7 +27,7 @@ class DetailsSeasonFragment : Fragment() {
     private val viewModel: DetailsSeasonViewModel by viewModels()
     private lateinit var eAdapter: SeasonsDetailsAdapter
     private val args: DetailsSeasonFragmentArgs by navArgs()
-
+    private lateinit var navController: NavController
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,13 +38,13 @@ class DetailsSeasonFragment : Fragment() {
         _binding = FragmentDetailsSeasonBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         setupRecyclerView()
+        navController = findNavController()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = args.tvShow.name
-        var navController = findNavController()
         eAdapter.onItemClick = {
             Log.d("SeasonDetails", "onViewCreated: $it")
             val bundle = bundleOf("episode" to it, "tvShow" to args.tvShow)
@@ -107,7 +108,7 @@ class DetailsSeasonFragment : Fragment() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }

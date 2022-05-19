@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tmdb.R
@@ -27,6 +28,7 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var pagerAdapter: CastAdapter
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val binding get() = _binding!!
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +36,7 @@ class MovieDetailsFragment : Fragment() {
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         setupRecyclerView()
+        navController = findNavController()
         viewModel.creditsPage.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -67,7 +70,6 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var navController = findNavController()
         pagerAdapter.onItemClick = {
             val bundle = bundleOf("person" to it)
             navController.navigate(R.id.navigation_person, bundle)
@@ -107,7 +109,7 @@ class MovieDetailsFragment : Fragment() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
-                activity?.onBackPressed()
+                navController.navigateUp()
                 return true
             }
         }
