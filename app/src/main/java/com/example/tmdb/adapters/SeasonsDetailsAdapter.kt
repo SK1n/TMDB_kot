@@ -6,16 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.databinding.SeasonDetailItemBinding
-import com.example.tmdb.databinding.SeasonItemBinding
+import com.example.tmdb.databinding.ItemSeasonDetailsBinding
 import com.example.tmdb.models.SeasonDetailModel
-import com.example.tmdb.models.TvShowsDetails.Season
 
 
-class SeasonsDetailsAdapter : RecyclerView.Adapter<SeasonsDetailsAdapter.SeasonDetailItemViewHolder>() {
+class SeasonsDetailsAdapter :
+    RecyclerView.Adapter<SeasonsDetailsAdapter.SeasonDetailItemViewHolder>() {
     var onItemClick: ((SeasonDetailModel.Episode) -> Unit)? = null
 
-    inner class SeasonDetailItemViewHolder(private var binding: SeasonDetailItemBinding) :
+    inner class SeasonDetailItemViewHolder(private var binding: ItemSeasonDetailsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SeasonDetailModel.Episode?) {
             binding.item = item
@@ -30,18 +29,24 @@ class SeasonsDetailsAdapter : RecyclerView.Adapter<SeasonsDetailsAdapter.SeasonD
     }
 
     private val differCallback = object : DiffUtil.ItemCallback<SeasonDetailModel.Episode>() {
-        override fun areItemsTheSame(oldItem: SeasonDetailModel.Episode, newItem: SeasonDetailModel.Episode): Boolean {
+        override fun areItemsTheSame(
+            oldItem: SeasonDetailModel.Episode,
+            newItem: SeasonDetailModel.Episode
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SeasonDetailModel.Episode, newItem: SeasonDetailModel.Episode): Boolean {
+        override fun areContentsTheSame(
+            oldItem: SeasonDetailModel.Episode,
+            newItem: SeasonDetailModel.Episode
+        ): Boolean {
             return oldItem == newItem
         }
     }
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeasonDetailItemViewHolder {
         return SeasonDetailItemViewHolder(
-            SeasonDetailItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemSeasonDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     }

@@ -3,51 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_tab_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.tmdb.ui.home.HomeFragment"
+        android:id="@+id/navigation_tab_home"
+        android:name="com.example.tmdb.ui.tabHome.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_tab_home" >
+        <action
+            android:id="@+id/action_navigation_tab_home_to_navigation_movie"
+            app:destination="@id/navigation_movie" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_movies"
-        android:name="com.example.tmdb.ui.movies.MoviesFragment"
+        android:id="@+id/navigation_tab_movies"
+        android:name="com.example.tmdb.ui.tabMovies.MoviesFragment"
         android:label="@string/title_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_tab_movies" >
+        <action
+            android:id="@+id/action_navigation_tab_movies_to_navigation_movie"
+            app:destination="@id/navigation_movie" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_tv_shows"
-        android:name="com.example.tmdb.ui.tvShows.TvShowsFragment"
+        android:id="@+id/navigation_tab_tv_shows"
+        android:name="com.example.tmdb.ui.tabTvShows.TvShowsFragment"
         android:label="@string/title_tv_shows"
-        tools:layout="@layout/fragment_tv_shows" />
+        tools:layout="@layout/fragment_tab_tv_shows" >
+        <action
+            android:id="@+id/action_navigation_tab_tv_shows_to_navigation_tv_shows_details"
+            app:destination="@id/navigation_tv_shows_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_movie"
-        android:name="com.example.tmdb.ui.home.movieDetails.MovieDetailsFragment"
+        android:name="com.example.tmdb.ui.detailsMovie.MovieDetailsFragment"
         android:label="@string/Movie"
         tools:layout="@layout/fragment_movie_details" >
         <argument
             android:name="movie"
             app:argType="com.example.tmdb.models.MoviesModel" />
+        <action
+            android:id="@+id/action_navigation_movie_to_navigation_person"
+            app:destination="@id/navigation_person" />
     </fragment>
     <fragment
         android:id="@+id/navigation_tv_shows_details"
-        android:name="com.example.tmdb.ui.tvShows.tvShowsDetails.TvShowsDetailsFragment"
+        android:name="com.example.tmdb.ui.detailsTvShow.DetailsTvShowsFragment"
         android:label="Tv Shows Details"
-        tools:layout="@layout/fragment_tv_shows_details"
+        tools:layout="@layout/fragment_details_tv_shows"
         >
 
         <argument
             android:name="tvShow"
             app:argType="com.example.tmdb.models.TvShowModel" />
+        <action
+            android:id="@+id/action_navigation_tv_shows_details_to_navigation_tv_shows_season_details"
+            app:destination="@id/navigation_tv_shows_season_details" />
     </fragment>
     <fragment
         android:id="@+id/navigation_tv_shows_season_details"
-        android:name="com.example.tmdb.ui.tvShows.seasonDetails.SeasonDetailsFragment"
+        android:name="com.example.tmdb.ui.detailsSeason.DetailsSeasonFragment"
         android:label="Tv Shows Season Details"
-        tools:layout="@layout/fragment_season_details"
+        tools:layout="@layout/fragment_details_season"
         >
         <argument
             android:name="season"
@@ -55,25 +73,37 @@
         <argument
             android:name="tvShow"
             app:argType="com.example.tmdb.models.TvShowModel" />
+        <action
+            android:id="@+id/action_navigation_tv_shows_season_details_to_navigation_episode"
+            app:destination="@id/navigation_episode" />
     </fragment>
     <fragment
         android:id="@+id/navigation_person"
-        android:name="com.example.tmdb.ui.person.PersonFragment"
-        tools:layout="@layout/fragment_tv_shows">
+        android:name="com.example.tmdb.ui.detailsPerson.DetailsPersonFragment"
+        tools:layout="@layout/fragment_tab_tv_shows">
         <argument
             android:name="person"
             app:argType="com.example.tmdb.models.CastModel" />
+        <action
+            android:id="@+id/action_navigation_person_to_navigation_movie"
+            app:destination="@id/navigation_movie" />
+        <action
+            android:id="@+id/action_navigation_person_to_navigation_tv_shows_details"
+            app:destination="@id/navigation_tv_shows_details" />
     </fragment>
     <fragment
         android:id="@+id/navigation_episode"
-        android:name="com.example.tmdb.ui.episode.EpisodeFragment"
-        tools:layout="@layout/fragment_episode">
+        android:name="com.example.tmdb.ui.detailsEpisode.DetailsEpisodeFragment"
+        tools:layout="@layout/fragment_details_episode">
         <argument
             android:name="episode"
             app:argType="com.example.tmdb.models.SeasonDetailModel$Episode" />
         <argument
             android:name="tvShow"
             app:argType="com.example.tmdb.models.TvShowModel" />
+        <action
+            android:id="@+id/action_navigation_episode_to_navigation_person"
+            app:destination="@id/navigation_person" />
     </fragment>
 
 </navigation>

@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tmdb.databinding.CastItemBinding
+import com.example.tmdb.databinding.ItemCastBinding
 import com.example.tmdb.models.CastModel
 
 
 class CastAdapter : RecyclerView.Adapter<CastAdapter.CastItemViewHolder>() {
     var onItemClick: ((CastModel) -> Unit)? = null
 
-    inner class CastItemViewHolder(private var binding: CastItemBinding) :
+    inner class CastItemViewHolder(private var binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(castItem: CastModel?) {
             binding.castItem = castItem
@@ -39,7 +39,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastItemViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastItemViewHolder {
         return CastItemViewHolder(
-            CastItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            ItemCastBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
 
     }

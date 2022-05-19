@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.tmdb.ui.tvShows.topRatedTv.TopRatedTvViewModel" />
+            type="com.example.tmdb.ui.tvTopRated.TopRatedTvViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
-            tools:listitem="@layout/tv_shows_item" />
+            tools:listitem="@layout/item_tv_show" />
 
         <ProgressBar
             android:id="@+id/topRatedTvProgress"
