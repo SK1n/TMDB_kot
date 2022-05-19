@@ -105,7 +105,6 @@ class DetailsSeasonFragment : Fragment() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
                 navController.navigateUp()

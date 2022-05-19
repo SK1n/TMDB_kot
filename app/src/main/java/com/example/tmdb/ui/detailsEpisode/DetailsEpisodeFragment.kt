@@ -53,15 +53,7 @@ class DetailsEpisodeFragment : Fragment() {
                     id = it.id,
                     name = it.name,
                     profile_path = profilePath,
-                    adult = false,
-                    cast_id = 0,
                     character = it.character,
-                    credit_id = "",
-                    gender = 0,
-                    known_for_department = "",
-                    order = 0,
-                    original_name = "",
-                    popularity = 0.0,
                 )
             )
             navController.navigate(R.id.navigation_person, bundle)
@@ -132,7 +124,6 @@ class DetailsEpisodeFragment : Fragment() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar menu items
         when (item.itemId) {
             android.R.id.home -> {
                 navController.navigateUp()

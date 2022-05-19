@@ -1,10 +1,8 @@
 package com.example.tmdb
 
 import android.graphics.Bitmap
-import android.opengl.Visibility
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -58,6 +56,7 @@ fun bindProfileImage(imageView: ImageView, url: String?) {
         .apply(options)
         .into(imageView)
 }
+
 @BindingAdapter("goneIfNull")
 fun goneIfNull(view: View, it: Any?) {
     view.visibility = if (it == "" || it == null) View.GONE else View.VISIBLE
