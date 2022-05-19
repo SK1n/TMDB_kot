@@ -38,7 +38,7 @@
             android:transformPivotX="0px"
             android:transformPivotY="0px" />
 
-        <!-- Needed to fill a rounding error gap in MotionLayout. See https://issuetracker.google.com/112728689 -->
+
         <View
             android:id="@+id/details_gap_filler"
             android:layout_width="match_parent"
