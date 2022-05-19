@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.tmdb.R
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsTopRatedBinding
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

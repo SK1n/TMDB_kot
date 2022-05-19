@@ -20,7 +20,7 @@ import com.example.tmdb.adapters.SeasonsDetailsAdapter
 import com.example.tmdb.bindImage
 import com.example.tmdb.databinding.FragmentDetailsSeasonBinding
 import com.example.tmdb.utils.Resource
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 
 class DetailsSeasonFragment : Fragment() {
     private var _binding: FragmentDetailsSeasonBinding? = null

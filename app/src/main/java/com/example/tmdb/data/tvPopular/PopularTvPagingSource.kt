@@ -1,19 +1,19 @@
-package com.example.tmdb.ui.moviesPopular.data
+package com.example.tmdb.data.tvPopular
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
 import com.example.tmdb.api.ApiService
-import com.example.tmdb.models.MoviesModel
+import com.example.tmdb.models.TvShowModel
 import java.io.IOException
 
-class PopularPagingSource(
+class PopularTvPagingSource(
     private val service: ApiService
-) : PagingSource<Int, MoviesModel>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MoviesModel> {
+) : PagingSource<Int, TvShowModel>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowModel> {
         val position = params.key ?: 1
         return try {
-            val response = service.getPopular(page = position)
+            val response = service.getTvPopular(page = position)
             val tvShows = response.body()?.results
             val nextKey = if (tvShows!!.isEmpty()) {
                 null
@@ -33,7 +33,7 @@ class PopularPagingSource(
 
     }
 
-    override fun getRefreshKey(state: PagingState<Int, MoviesModel>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, TvShowModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)

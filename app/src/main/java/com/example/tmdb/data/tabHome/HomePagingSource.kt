@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.tabHome.data
+package com.example.tmdb.data.tabHome
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

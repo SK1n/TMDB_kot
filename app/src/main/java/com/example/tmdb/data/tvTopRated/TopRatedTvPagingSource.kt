@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.tvPopular.data
+package com.example.tmdb.data.tvTopRated
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -7,13 +7,13 @@ import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.TvShowModel
 import java.io.IOException
 
-class PopularTvPagingSource(
+class TopRatedTvPagingSource(
     private val service: ApiService
 ) : PagingSource<Int, TvShowModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowModel> {
         val position = params.key ?: 1
         return try {
-            val response = service.getTvPopular(page = position)
+            val response = service.getTvTopRated(page = position)
             val tvShows = response.body()?.results
             val nextKey = if (tvShows!!.isEmpty()) {
                 null

@@ -2,7 +2,6 @@ package com.example.tmdb.ui.tabHome
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -15,7 +14,7 @@ import androidx.paging.LoadState
 import com.example.tmdb.R
 import com.example.tmdb.adapters.MoviesAdapter
 import com.example.tmdb.databinding.FragmentTabHomeBinding
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

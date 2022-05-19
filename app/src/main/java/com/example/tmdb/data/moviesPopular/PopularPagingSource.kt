@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.moviesUpcoming.data
+package com.example.tmdb.data.moviesPopular
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -7,13 +7,13 @@ import com.example.tmdb.api.ApiService
 import com.example.tmdb.models.MoviesModel
 import java.io.IOException
 
-class UpcomingPagingSource(
+class PopularPagingSource(
     private val service: ApiService
 ) : PagingSource<Int, MoviesModel>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MoviesModel> {
         val position = params.key ?: 1
         return try {
-            val response = service.getUpcoming(page = position)
+            val response = service.getPopular(page = position)
             val tvShows = response.body()?.results
             val nextKey = if (tvShows!!.isEmpty()) {
                 null

@@ -1,4 +1,4 @@
-package com.example.tmdb.ui.moviesNowPlaying.data
+package com.example.tmdb.data.moviesNowPlaying
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

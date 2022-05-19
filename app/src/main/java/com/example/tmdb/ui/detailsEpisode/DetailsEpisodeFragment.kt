@@ -21,7 +21,7 @@ import com.example.tmdb.databinding.FragmentDetailsEpisodeBinding
 import com.example.tmdb.goneIfNull
 import com.example.tmdb.models.CastModel
 import com.example.tmdb.utils.Resource
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 
 class DetailsEpisodeFragment : Fragment() {
     private val viewModel: DetailsEpisodeViewModel by viewModels()

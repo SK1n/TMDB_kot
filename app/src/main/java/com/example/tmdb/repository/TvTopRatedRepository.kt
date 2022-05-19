@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.tmdb.api.RetrofitInstance
 import com.example.tmdb.models.TvShowModel
-import com.example.tmdb.ui.tvTopRated.data.TopRatedTvPagingSource
+import com.example.tmdb.data.tvTopRated.TopRatedTvPagingSource
 import com.example.tmdb.utils.Constants
 import kotlinx.coroutines.flow.Flow
 

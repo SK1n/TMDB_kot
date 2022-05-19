@@ -11,7 +11,7 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_tab_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_movie"
+            android:id="@+id/action_navigation_tab_home_to_navigation_movie"
             app:destination="@id/navigation_movie" />
     </fragment>
 

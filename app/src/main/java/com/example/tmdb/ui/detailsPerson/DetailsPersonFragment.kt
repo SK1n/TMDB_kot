@@ -24,7 +24,7 @@ import com.example.tmdb.databinding.FragmentDetailsPersonBinding
 import com.example.tmdb.goneIfNull
 import com.example.tmdb.models.PersonModel
 import com.example.tmdb.utils.Resource
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 
 class DetailsPersonFragment : Fragment() {
     private val viewModel: DetailsPersonViewModel by viewModels()

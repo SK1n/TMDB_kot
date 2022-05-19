@@ -17,7 +17,7 @@ import androidx.paging.LoadState
 import com.example.tmdb.R
 import com.example.tmdb.adapters.TvShowsAdapter
 import com.example.tmdb.databinding.FragmentTvShowsPopularBinding
-import com.example.tmdb.widgets.MarginDecoration
+import com.example.tmdb.ui.customViews.MarginDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.example.tmdb.widgets
+package com.example.tmdb.ui.customViews
 
 import android.content.Context
 import android.graphics.Color
